@@ -79,15 +79,19 @@
 
 
 
-<meta name="description" content="a blog of nicholas lee">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nic&#39;s Utopia">
-<meta property="og:url" content="http://nicholaslee119.github.io/index.html">
+<meta name="description" content="预备知识：webpack 相关知识，传统网站模版开发模式 什么是组件（component）关于组件的定义有非常多的说法，我先举几个例子。 在vuejs下，组件长这个样子   在ReactJS下，组件长这个样子1234567891011121314class HelloMessage extends React.Component &amp;#123;  render() &amp;#123;    return">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在没有前端框架的情况下实现组件化">
+<meta property="og:url" content="http://nicholaslee119.github.io/2017/10/03/如何在没有前端框架的情况下实现组件化/index.html">
 <meta property="og:site_name" content="Nic&#39;s Utopia">
-<meta property="og:description" content="a blog of nicholas lee">
+<meta property="og:description" content="预备知识：webpack 相关知识，传统网站模版开发模式 什么是组件（component）关于组件的定义有非常多的说法，我先举几个例子。 在vuejs下，组件长这个样子   在ReactJS下，组件长这个样子1234567891011121314class HelloMessage extends React.Component &amp;#123;  render() &amp;#123;    return">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/vue-component.png">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/component-loader.png">
+<meta property="og:updated_time" content="2017-10-03T02:32:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nic&#39;s Utopia">
-<meta name="twitter:description" content="a blog of nicholas lee">
+<meta name="twitter:title" content="如何在没有前端框架的情况下实现组件化">
+<meta name="twitter:description" content="预备知识：webpack 相关知识，传统网站模版开发模式 什么是组件（component）关于组件的定义有非常多的说法，我先举几个例子。 在vuejs下，组件长这个样子   在ReactJS下，组件长这个样子1234567891011121314class HelloMessage extends React.Component &amp;#123;  render() &amp;#123;    return">
+<meta name="twitter:image" content="http://nicholaslee119.github.io/images/vue-component.png">
 
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://nicholaslee119.github.io/"/>
+  <link rel="canonical" href="http://nicholaslee119.github.io/2017/10/03/如何在没有前端框架的情况下实现组件化/"/>
 
 
 
 
 
-  <title>Nic's Utopia</title>
+  <title>如何在没有前端框架的情况下实现组件化 | Nic's Utopia</title>
   
 
 
@@ -142,8 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,9 +219,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -248,9 +251,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/03/如何在没有前端框架的情况下实现组件化/" itemprop="url">如何在没有前端框架的情况下实现组件化</a></h1>
+          <h1 class="post-title" itemprop="name headline">如何在没有前端框架的情况下实现组件化</h1>
         
 
         <div class="post-meta">
@@ -300,9 +301,7 @@
       
 
       
-        
-          
-            <p>预备知识：webpack 相关知识，传统网站模版开发模式</p>
+        <p>预备知识：webpack 相关知识，传统网站模版开发模式</p>
 <h1 id="什么是组件（component）"><a href="#什么是组件（component）" class="headerlink" title="什么是组件（component）"></a>什么是组件（component）</h1><p>关于组件的定义有非常多的说法，我先举几个例子。</p>
 <h2 id="在vuejs下，组件长这个样子"><a href="#在vuejs下，组件长这个样子" class="headerlink" title="在vuejs下，组件长这个样子"></a>在vuejs下，组件长这个样子</h2><p>  <img src="/images/vue-component.png" width="70%" height="70%"></p>
 <h2 id="在ReactJS下，组件长这个样子"><a href="#在ReactJS下，组件长这个样子" class="headerlink" title="在ReactJS下，组件长这个样子"></a>在ReactJS下，组件长这个样子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloMessage</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        Hello &#123;<span class="keyword">this</span>.props.name&#125;</div><div class="line">      &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">    );</span></div><div class="line"><span class="regexp">  &#125;</span></div><div class="line"><span class="regexp">&#125;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">ReactDOM.render(</span></div><div class="line"><span class="regexp">  &lt;HelloMessage name="Jane" /</span>&gt;,</div><div class="line">  mountNode</div><div class="line">);</div></pre></td></tr></table></figure>
@@ -326,8 +325,6 @@
 <p>这样就在实现了，在开发时实现组件化开发，但是又没有改变既有生产环境。</p>
 <p>在此附上笔者实现的loader地址</p>
 
-          
-        
       
     </div>
     
@@ -344,12 +341,12 @@
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -359,10 +356,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -370,6 +368,8 @@
 
 
           
+  
+
 
         </div>
         
@@ -390,8 +390,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -435,6 +444,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是组件（component）"><span class="nav-number">1.</span> <span class="nav-text">什么是组件（component）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在vuejs下，组件长这个样子"><span class="nav-number">1.1.</span> <span class="nav-text">在vuejs下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在ReactJS下，组件长这个样子"><span class="nav-number">1.2.</span> <span class="nav-text">在ReactJS下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Polymer下，组件长这个样子"><span class="nav-number">1.3.</span> <span class="nav-text">在Polymer下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-component-计划官方是这么定义的"><span class="nav-number">1.4.</span> <span class="nav-text">Web component 计划官方是这么定义的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔者理解的组件化"><span class="nav-number">1.5.</span> <span class="nav-text">笔者理解的组件化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化的好处"><span class="nav-number">2.</span> <span class="nav-text">组件化的好处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当前的问题"><span class="nav-number">3.</span> <span class="nav-text">当前的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#也就是说，我们现在需要在没有前端框架的情况下导入组件系统"><span class="nav-number">4.</span> <span class="nav-text">也就是说，我们现在需要在没有前端框架的情况下导入组件系统</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -554,6 +579,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
