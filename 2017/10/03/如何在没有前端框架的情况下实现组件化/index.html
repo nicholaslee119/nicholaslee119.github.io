@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/vue-component.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/component-loader.png">
-<meta property="og:updated_time" content="2017-10-03T03:36:02.000Z">
+<meta property="og:updated_time" content="2017-10-03T04:48:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在没有前端框架的情况下实现组件化">
 <meta name="twitter:description" content="预备知识：webpack 相关知识，传统网站模版开发模式 什么是组件（component）关于组件的定义有非常多的说法，我先举几个例子。 在vuejs下，组件长这个样子   在ReactJS下，组件长这个样子1234567891011121314class HelloMessage extends React.Component &amp;#123;  render() &amp;#123;    return">
@@ -334,13 +334,12 @@
 <h2 id="笔者理解的组件化"><a href="#笔者理解的组件化" class="headerlink" title="笔者理解的组件化"></a>笔者理解的组件化</h2><p>在笔者的简单地总结一下就是：以组件为单位，将组件相关的HTML／JS／CSS放到同一个地方。这里的同一个地方，可以是一个文件，也可以是同一个文件夹之下。</p>
 <p>（PS：当然组件化还包括custom tag/shadow DOM/….等等概念）</p>
 <h1 id="组件化的好处"><a href="#组件化的好处" class="headerlink" title="组件化的好处"></a>组件化的好处</h1><p>相信用过VueJS ReactJS的朋友，都可以举出一大堆组件化的好处：复用性高，容易维护，方便测试，高内聚，低耦合等等，这里不再累述。</p>
-<h1 id="当前的问题"><a href="#当前的问题" class="headerlink" title="当前的问题"></a>当前的问题</h1><p>现在的各种前端框架大行其道，再给大家打来组件系统的同时，还带了了各种方便炫酷的功能，比如说数据绑定，VisualDOM等等。</p>
-<p>但是现实开发场景时非常复杂的，由于各种原因不能导入VueJS，ReactJS，AngularJS等等前端框架</p>
-<p>比如说，网站是一个后端使用PHP框架的大型CMS网站，而且对SEO要求非常高，由于历史原因，后端只能使用PHP。如今想导入组件化的，但是比不需要数据绑定，VisualDOM等等功能，只需要单纯的组件化。</p>
-<p>或者，由于公司政治原因，不能导入前端框架等等。。。</p>
+<h1 id="当前的问题"><a href="#当前的问题" class="headerlink" title="当前的问题"></a>当前的问题</h1><p>现在的各种前端框架大行其道，在给大家带来组件系统的同时，还带来了各种方便炫酷的功能，比如说数据绑定，VisualDOM等等。</p>
+<p>但是现实开发场景经常是非常复杂的，由于各种原因不能导入VueJS，ReactJS，AngularJS等等前端框架</p>
+<p>以笔者就职的公司（日本最大的房地产信息平台SUUMO）为例，网站是一个后端使用PHP框架的大型CMS网站，而且对SEO要求非常高，由于历史原因，后端只能使用PHP。如今想导入组件化概念，但是并不需要数据绑定，VisualDOM等等炫酷的功能，只需要单纯的组件化。</p>
 <h1 id="在没有前端框架的情况下实现组件化"><a href="#在没有前端框架的情况下实现组件化" class="headerlink" title="在没有前端框架的情况下实现组件化"></a>在没有前端框架的情况下实现组件化</h1><p>这个时候我们可以借助各种前端打包工具来实现了</p>
 <p>这里我们借用了webpack来实现组件化, 具体的做法是这样的：<br><img src="/images/component-loader.png" alt="component-loader"></p>
-<p>通过笔者自己实现的一个webpack-components-loader完成了以上的打包和分散功能</p>
+<p>通过笔者自己实现的一个webpack-components-loader完成了以上的打包和分发功能</p>
 <p>如图所示，在开发环境中，以组件为单位，将组件相关的template(笔者这里以smarty为例)／JS／CSS放到同一个文件下。这样在开发时，都是按照组件为单位进行开发的。</p>
 <p>开发完毕之后通过loader，分别将组件的template分发到后端，将JS／CSS打包成分别打包到同一个文件分发到前端。</p>
 <p>这样就在实现了，在开发时实现组件化开发，但是又没有改变既有生产环境。</p>
