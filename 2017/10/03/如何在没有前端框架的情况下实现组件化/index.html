@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/vue-component.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/component-loader.png">
-<meta property="og:updated_time" content="2017-10-03T03:26:06.000Z">
+<meta property="og:updated_time" content="2017-10-03T03:36:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在没有前端框架的情况下实现组件化">
 <meta name="twitter:description" content="预备知识：webpack 相关知识，传统网站模版开发模式 什么是组件（component）关于组件的定义有非常多的说法，我先举几个例子。 在vuejs下，组件长这个样子   在ReactJS下，组件长这个样子1234567891011121314class HelloMessage extends React.Component &amp;#123;  render() &amp;#123;    return">
@@ -338,13 +338,15 @@
 <p>但是现实开发场景时非常复杂的，由于各种原因不能导入VueJS，ReactJS，AngularJS等等前端框架</p>
 <p>比如说，网站是一个后端使用PHP框架的大型CMS网站，而且对SEO要求非常高，由于历史原因，后端只能使用PHP。如今想导入组件化的，但是比不需要数据绑定，VisualDOM等等功能，只需要单纯的组件化。</p>
 <p>或者，由于公司政治原因，不能导入前端框架等等。。。</p>
-<h1 id="也就是说，我们现在需要在没有前端框架的情况下导入组件系统"><a href="#也就是说，我们现在需要在没有前端框架的情况下导入组件系统" class="headerlink" title="也就是说，我们现在需要在没有前端框架的情况下导入组件系统"></a>也就是说，我们现在需要在没有前端框架的情况下导入组件系统</h1><p>这个时候我们只能借助各种前端打包工具来实现了</p>
-<p>webpack这个时候成了我们的救星，具体的做法是这样的：<br><img src="/images/component-loader.png" alt="component-loader"></p>
+<h1 id="在没有前端框架的情况下实现组件化"><a href="#在没有前端框架的情况下实现组件化" class="headerlink" title="在没有前端框架的情况下实现组件化"></a>在没有前端框架的情况下实现组件化</h1><p>这个时候我们可以借助各种前端打包工具来实现了</p>
+<p>这里我们借用了webpack来实现组件化, 具体的做法是这样的：<br><img src="/images/component-loader.png" alt="component-loader"></p>
 <p>通过笔者自己实现的一个webpack-components-loader完成了以上的打包和分散功能</p>
 <p>如图所示，在开发环境中，以组件为单位，将组件相关的template(笔者这里以smarty为例)／JS／CSS放到同一个文件下。这样在开发时，都是按照组件为单位进行开发的。</p>
 <p>开发完毕之后通过loader，分别将组件的template分发到后端，将JS／CSS打包成分别打包到同一个文件分发到前端。</p>
 <p>这样就在实现了，在开发时实现组件化开发，但是又没有改变既有生产环境。</p>
 <p>在此附上笔者实现的loader地址:<br><a href="https://github.com/nicholaslee119/webpack-component-loader" target="_blank" rel="external">webpack-component-loader</a></p>
+<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>什么？公司连webpack也不让用？</p>
+<p>没关系，我们也有方法（未完待续）</p>
 
       
     </div>
@@ -493,7 +495,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是组件（component）"><span class="nav-number">1.</span> <span class="nav-text">什么是组件（component）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在vuejs下，组件长这个样子"><span class="nav-number">1.1.</span> <span class="nav-text">在vuejs下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在ReactJS下，组件长这个样子"><span class="nav-number">1.2.</span> <span class="nav-text">在ReactJS下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Polymer下，组件长这个样子"><span class="nav-number">1.3.</span> <span class="nav-text">在Polymer下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-component-计划官方是这么定义的"><span class="nav-number">1.4.</span> <span class="nav-text">Web component 计划官方是这么定义的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔者理解的组件化"><span class="nav-number">1.5.</span> <span class="nav-text">笔者理解的组件化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化的好处"><span class="nav-number">2.</span> <span class="nav-text">组件化的好处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当前的问题"><span class="nav-number">3.</span> <span class="nav-text">当前的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#也就是说，我们现在需要在没有前端框架的情况下导入组件系统"><span class="nav-number">4.</span> <span class="nav-text">也就是说，我们现在需要在没有前端框架的情况下导入组件系统</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是组件（component）"><span class="nav-number">1.</span> <span class="nav-text">什么是组件（component）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在vuejs下，组件长这个样子"><span class="nav-number">1.1.</span> <span class="nav-text">在vuejs下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在ReactJS下，组件长这个样子"><span class="nav-number">1.2.</span> <span class="nav-text">在ReactJS下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Polymer下，组件长这个样子"><span class="nav-number">1.3.</span> <span class="nav-text">在Polymer下，组件长这个样子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-component-计划官方是这么定义的"><span class="nav-number">1.4.</span> <span class="nav-text">Web component 计划官方是这么定义的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔者理解的组件化"><span class="nav-number">1.5.</span> <span class="nav-text">笔者理解的组件化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化的好处"><span class="nav-number">2.</span> <span class="nav-text">组件化的好处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当前的问题"><span class="nav-number">3.</span> <span class="nav-text">当前的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在没有前端框架的情况下实现组件化"><span class="nav-number">4.</span> <span class="nav-text">在没有前端框架的情况下实现组件化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后续"><span class="nav-number">5.</span> <span class="nav-text">后续</span></a></li></ol></div>
             
 
           </div>

@@ -339,13 +339,15 @@
 <p>但是现实开发场景时非常复杂的，由于各种原因不能导入VueJS，ReactJS，AngularJS等等前端框架</p>
 <p>比如说，网站是一个后端使用PHP框架的大型CMS网站，而且对SEO要求非常高，由于历史原因，后端只能使用PHP。如今想导入组件化的，但是比不需要数据绑定，VisualDOM等等功能，只需要单纯的组件化。</p>
 <p>或者，由于公司政治原因，不能导入前端框架等等。。。</p>
-<h1 id="也就是说，我们现在需要在没有前端框架的情况下导入组件系统"><a href="#也就是说，我们现在需要在没有前端框架的情况下导入组件系统" class="headerlink" title="也就是说，我们现在需要在没有前端框架的情况下导入组件系统"></a>也就是说，我们现在需要在没有前端框架的情况下导入组件系统</h1><p>这个时候我们只能借助各种前端打包工具来实现了</p>
-<p>webpack这个时候成了我们的救星，具体的做法是这样的：<br><img src="/images/component-loader.png" alt="component-loader"></p>
+<h1 id="在没有前端框架的情况下实现组件化"><a href="#在没有前端框架的情况下实现组件化" class="headerlink" title="在没有前端框架的情况下实现组件化"></a>在没有前端框架的情况下实现组件化</h1><p>这个时候我们可以借助各种前端打包工具来实现了</p>
+<p>这里我们借用了webpack来实现组件化, 具体的做法是这样的：<br><img src="/images/component-loader.png" alt="component-loader"></p>
 <p>通过笔者自己实现的一个webpack-components-loader完成了以上的打包和分散功能</p>
 <p>如图所示，在开发环境中，以组件为单位，将组件相关的template(笔者这里以smarty为例)／JS／CSS放到同一个文件下。这样在开发时，都是按照组件为单位进行开发的。</p>
 <p>开发完毕之后通过loader，分别将组件的template分发到后端，将JS／CSS打包成分别打包到同一个文件分发到前端。</p>
 <p>这样就在实现了，在开发时实现组件化开发，但是又没有改变既有生产环境。</p>
 <p>在此附上笔者实现的loader地址:<br><a href="https://github.com/nicholaslee119/webpack-component-loader" target="_blank" rel="external">webpack-component-loader</a></p>
+<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>什么？公司连webpack也不让用？</p>
+<p>没关系，我们也有方法（未完待续）</p>
 
           
         
