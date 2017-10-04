@@ -87,20 +87,20 @@
 <meta property="og:description" content="运行时性能表现（runtime performance）指的是当你的页面在浏览器运行时的性能表现，而不是在下载页面的时候的表现。这篇指南将会告诉你怎么用Chrome DevToos Performance功能去分析运行时性能表现。在RAIL性能评估模型下，你可以在这篇指南中可以学到怎么去用这个performance功能去分析Response, Animation, 以及 Idle 这四个性能指标。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/1.png">
-<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/2.svg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/2.jpg">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/3.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/4.png">
-<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/5.svg">
-<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/6.svg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/5.jpg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/6.jpg">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/7.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/8.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/9.png">
-<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/10.svg">
-<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/11.svg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/10.jpg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/performance/11.jpg">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/12.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/13.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/performance/14.png">
-<meta property="og:updated_time" content="2017-10-04T15:36:10.000Z">
+<meta property="og:updated_time" content="2017-10-04T15:47:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="全新Chrome Devtool Performance使用指南">
 <meta name="twitter:description" content="运行时性能表现（runtime performance）指的是当你的页面在浏览器运行时的性能表现，而不是在下载页面的时候的表现。这篇指南将会告诉你怎么用Chrome DevToos Performance功能去分析运行时性能表现。在RAIL性能评估模型下，你可以在这篇指南中可以学到怎么去用这个performance功能去分析Response, Animation, 以及 Idle 这四个性能指标。">
@@ -353,7 +353,7 @@
 <li>点击 Capture Settings（⚙️）按钮，DevTools会展示很多设置，来模拟各种状况</li>
 <li>对于模拟CPU，选择2x slowdown，于是Devtools就开始模拟两倍低俗CPU</li>
 </ol>
-<p><img src="/images/performance/2.svg"></p>
+<p><img src="/images/performance/2.jpg"></p>
 <h2 id="设置DEMO"><a href="#设置DEMO" class="headerlink" title="设置DEMO"></a>设置DEMO</h2><p>为了使得这个DEMO有相对统一的运行表现（不同的读者，机器的性能千差万别）。这个DEMO提供了自定义功能，用来确保这个DEMO的统一表现。</p>
 <ol>
 <li><p>一直点击 Add 10 这个按钮直到你能很明显看到蓝色小方块移动变慢，在性能比较好的机器上，大概要点击20次左右。</p>
@@ -381,11 +381,11 @@
 <ol>
 <li>观察FPS图表，如果你发现了一个红色的长条，那么就说明这些帧存在严重问题，有可能导致非常差的用户体验。一般来说，绿色的长条越高，说明FPS越高，用户体验越好。</li>
 </ol>
-<p><img src="/images/performance/5.svg"></p>
+<p><img src="/images/performance/5.jpg"></p>
 <ol>
 <li>就在FPS图表下方，你会看到CPU图表。在CPU图表中的各种颜色与Summary面板里的颜色是相互对应的，Summary面板就在Performance面板的下方。CPU图表中的各种颜色代表着在这个时间段内，CPU在各种处理上所花费的时间。如果你看到了某个处理占用了大量的时间，那么这可能就是一个可以找到性能瓶颈的线索。</li>
 </ol>
-<p><img src="/images/performance/6.svg"></p>
+<p><img src="/images/performance/6.jpg"></p>
 <ol>
 <li>把鼠标移动到FPS，CPU或者NET图表之上，DevToos就会展示这个时间点界面的截图。左右移动鼠标，可以重发当时的屏幕录像。这被称为scrubbing, 他可以用来分析动画的各个细节。</li>
 </ol>
@@ -412,11 +412,11 @@
 <ol>
 <li>注意Summary面板，你会发现CPU花费了大量的时间在rendering上。因为提高性能就是一门做减法的艺术，你的目标就是减少rendering的时间</li>
 </ol>
-<p><img src="/images/performance/10.svg"></p>
+<p><img src="/images/performance/10.jpg"></p>
 <ol>
 <li>展开Main图表，Devtools展示了主线程运行状况。X轴代表着时间。每个长条代表着一个event。长条越长就代表这个event花费的时间越长。Y轴代表了调用栈（call stack）。在栈里，上面的event调用了下面的event。</li>
 </ol>
-<p><img src="/images/performance/11.svg"></p>
+<p><img src="/images/performance/11.jpg"></p>
 <ol>
 <li>在性能报告中，有很多的数据。可以通过双击，拖动等等动作来放大缩小报告范围，从各种时间段来观察分析报告。</li>
 </ol>
