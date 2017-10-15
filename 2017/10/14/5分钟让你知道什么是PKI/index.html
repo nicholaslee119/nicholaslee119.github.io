@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Frontend, Web, Techology, Music, Post rock, Photographic" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言Public Key Infrastructure（PKI)，中文叫做公开密钥基础设施，也就是利用公开密钥机制建立起来的基础设施。但是如果这么解释起来，到底是个什么东西，大家想必是没办法理解的。 现在大家的很多重要活动都是通过网络进行的，那么与之俱来的安全问题就显得非常重要。同时很多安全保障机制都是基于PKI的，如果你因为各种原因（考试？提案？好奇？）想知道各种KPI是什么。那么通过这篇文章，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5分钟让你知道什么是PKI">
+<meta property="og:url" content="http://nicholaslee119.github.io/2017/10/14/5分钟让你知道什么是PKI/index.html">
+<meta property="og:site_name" content="Nic&#39;s Utopia">
+<meta property="og:description" content="前言Public Key Infrastructure（PKI)，中文叫做公开密钥基础设施，也就是利用公开密钥机制建立起来的基础设施。但是如果这么解释起来，到底是个什么东西，大家想必是没办法理解的。 现在大家的很多重要活动都是通过网络进行的，那么与之俱来的安全问题就显得非常重要。同时很多安全保障机制都是基于PKI的，如果你因为各种原因（考试？提案？好奇？）想知道各种KPI是什么。那么通过这篇文章，">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/PKI/PKI1.jpg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/PKI/PKI2.jpg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/PKI/PKI3.jpg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/PKI/PKI4.jpg">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/PKI/PKI5.jpg">
+<meta property="og:updated_time" content="2017-10-15T09:41:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5分钟让你知道什么是PKI">
+<meta name="twitter:description" content="前言Public Key Infrastructure（PKI)，中文叫做公开密钥基础设施，也就是利用公开密钥机制建立起来的基础设施。但是如果这么解释起来，到底是个什么东西，大家想必是没办法理解的。 现在大家的很多重要活动都是通过网络进行的，那么与之俱来的安全问题就显得非常重要。同时很多安全保障机制都是基于PKI的，如果你因为各种原因（考试？提案？好奇？）想知道各种KPI是什么。那么通过这篇文章，">
+<meta name="twitter:image" content="http://nicholaslee119.github.io/images/PKI/PKI1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://nicholaslee119.github.io/2017/10/14/5分钟让你知道什么是PKI/"/>
+
+
+
+
+
+  <title>5分钟让你知道什么是PKI | Nic's Utopia</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-107380729-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nic's Utopia</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://nicholaslee119.github.io/2017/10/14/5分钟让你知道什么是PKI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nicholas Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nic's Utopia">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">5分钟让你知道什么是PKI</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-14T22:27:53+09:00">
+                2017-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/14/5分钟让你知道什么是PKI/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/10/14/5分钟让你知道什么是PKI/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Public Key Infrastructure（PKI)，中文叫做公开密钥基础设施，也就是利用公开密钥机制建立起来的基础设施。但是如果这么解释起来，到底是个什么东西，大家想必是没办法理解的。</p>
+<p>现在大家的很多重要活动都是通过网络进行的，那么与之俱来的安全问题就显得非常重要。同时很多安全保障机制都是基于PKI的，如果你因为各种原因（考试？提案？好奇？）想知道各种KPI是什么。那么通过这篇文章，绝对让你5分钟知道什么是KPI。</p>
+<p>PKI不好理解的原因是，这个概念包括了很多不同的技术和知识，同时又因为这个概念很庞大，让人感觉无从下手。但是，这个概念其实没有看起来那么复杂，让我们开始说明吧！</p>
+<h1 id="第1分钟-PKI的核心是身份证明书的发行"><a href="#第1分钟-PKI的核心是身份证明书的发行" class="headerlink" title="第1分钟 - PKI的核心是身份证明书的发行"></a>第1分钟 - PKI的核心是身份证明书的发行</h1><p>PKI的主要目的是用来发行“身份证明书”，网络上因为大家不能见面，所以伪造身份是非常容易的事情。因为要在网络上验明正身，所以这个网络身份证明书就变得很重要了。</p>
+<p>相互通信的时候，如果能相互确认身份证明书，那么我们就知道自己是在跟对的人通信。<br><img src="/images/PKI/PKI1.jpg" width="70%" height="70%"></p>
+<p>但是，自己做的身份证明书是不能拿来作为证明的，就像生活中，如果公民身份证可以私人合法制作的话，那么身份证也就没啥可信度了。网络世界中，我们需要一个信得过的发证机关来发行身份证明书，同时自己要好好保管自己的身份证明书，就像派出所给你发了公民身份证，自己要好好保管一样。</p>
+<p>PKI的世界里，这个身份证明书，被叫做“证明书”。发行“证明书”的机关叫做“认证机关”。还有一个就是统一管理证明书的证书“档案库”。这三个东西加起来，就是PKI的主要构成要素。</p>
+<h1 id="第2分钟-构成PKI的要素只有三个"><a href="#第2分钟-构成PKI的要素只有三个" class="headerlink" title="第2分钟 - 构成PKI的要素只有三个"></a>第2分钟 - 构成PKI的要素只有三个</h1><p>就像之前提到的，一般来说，构成PKI的主要要素就是下面三个概念</p>
+<ol>
+<li>证明书</li>
+<li>认证机关</li>
+<li>证书库</li>
+</ol>
+<p>说到底，PKI指的是证明书的制作和分发的一种机制。在这个机制的保障前提下，进行可信赖的网络通信。即安全的网路通信保障机制。<br><img src="/images/PKI/PKI2.jpg" width="70%" height="70%"></p>
+<p>实际上，证明书是被存放在硬盘或者IC卡里面的。证明书的文件构造是一种叫做 X.509 的协议规定的。另一方面，认证机关也其实就是一个网络应用程序。</p>
+<p>证书库因为某些原因，其实也就是文件系统而已，在网络上将证书存放在一起。这些东西，可以通过下载来获取。或者，因为某些原因，证书直接分发，从而省去了证书库这个环节。</p>
+<h1 id="第3分钟-证明书里面的密钥"><a href="#第3分钟-证明书里面的密钥" class="headerlink" title="第3分钟 - 证明书里面的密钥"></a>第3分钟 - 证明书里面的密钥</h1><p>一旦利用了证明书确认了身份的同时，通信的加密也就可以实现了。为什么呢？证明书里面包含了用来加密的密钥。</p>
+<p>比如说，你要和一个自称比尔的男人通信。这个自称比尔的男人，会在通信的最开始，通过网络将证明书发给你，那么通过这个证明书，就证实了他就是比尔。</p>
+<p>然后，你用这个“证明书中的密钥”，将你要发送给比尔的内容进行加密，然后发送给比尔。</p>
+<p>用“证明书中的密钥”加密过的内容，只能用比尔自己才有的另一个“私人的密钥”才能解密。这样的话，如果你发送给比尔的内容被他人窃取的话，他人也无法解密。<br><img src="/images/PKI/PKI3.jpg" width="70%" height="70%"></p>
+<p>只要比尔自己好好保管好自己才有的“私人的密钥”，那么如果有人拿着比尔的“证明书中的密钥”想要胡作非为的话，那就是不可能的。因为用“证明书中的密钥”加密过的内容，只有比尔自己才有的“私人的密钥”才能解密。</p>
+<p>所以这么一来，PKI提供的证明书可以用来 身份确认 和 通信加密。同时实现了这两个重要的功能。</p>
+<h1 id="第4分钟-什么是”公开密钥“，什么是”私有密钥“"><a href="#第4分钟-什么是”公开密钥“，什么是”私有密钥“" class="headerlink" title="第4分钟 - 什么是”公开密钥“，什么是”私有密钥“"></a>第4分钟 - 什么是”公开密钥“，什么是”私有密钥“</h1><p>对于比尔来说，只要保证本人的那个“私人的密钥”不被盗走，包含在“证明书里的密钥”给多少人都没有关系。也就是说，想跟比尔通信的人，必须要有比尔的证明书，要用比尔“证明书里的密钥”对通信内容进行加密。为了能让其他人可以方便的获取比尔的证明书，证书库就显得有必要了。</p>
+<p>在PKI机制中，放在“证明书里面的密钥”可以被任意自由分发，这里的“证明书里的密钥”被叫做“公开密钥（Public Key）”。与此相对，本人保管的那个“私人的密钥”就要做“私有密钥（Private Key）”。<br><img src="/images/PKI/PKI4.jpg" width="70%" height="70%"></p>
+<p>就像前文提到的，公开密钥是放在证明书里面的，所有用什么样的方式去分发证明书都没有关系。放到U盘里给别人，或者放到网上让人任意下载，或者用邮件发送，都是可以的。</p>
+<h1 id="第5分钟-”拿什么去信任你？我的证明书“"><a href="#第5分钟-”拿什么去信任你？我的证明书“" class="headerlink" title="第5分钟 - ”拿什么去信任你？我的证明书“"></a>第5分钟 - ”拿什么去信任你？我的证明书“</h1><p>先前说到，用包含在证明书里的公开密钥去给通信内容加密，这个过程大家已经知道。但是PKI提供的证明书真的可以被信任吗？说到底，证明书也就是普通的文件而已。不像货币那样，本身有着特殊的材质或者物理上的防伪措施。</p>
+<p>这么想是完全对的，因为实际上，认证机关所用的证书生成器说到底也就是一个软件而已，如果搞到这个软件，谁都可以发行证明书。所以说，在技术上，伪造证明书是非常简单的。所谓假的证明书，比如说有一个所谓的“比尔的证明书”，但是里面含有的公开密钥是史提芬的公开密钥。那么，别人发给比尔的信息，史蒂芬可以解密，反而比尔自己不能解密。</p>
+<p>这样看来，这个认证机关就至关重要了，认证机关的可信度，直接与证书的可信度挂钩，也就是与整个PKI机制的可信度息息相关。<br><img src="/images/PKI/PKI5.jpg" width="70%" height="70%"></p>
+<p>关于认证机关的权威性和可信度的问题，其实是一个社会基础设施建设的话题了。<br>在很多国家认证机关都是由政府在主导建设，常常被视作一个社会性基础设施的一个环节。如同建设各种社会机构，比如医院，银行，学校等等。</p>
+<p>（译者案：日本关于这些基础性的概念的文章都写的非常通俗易懂，如何去让小白都可以去理解一个非常复杂的概念，这是日本人写技术文章特别专注的，很值得大家学习）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/04/Chrome-Devtool-Performance使用指南/" rel="next" title="全新Chrome Devtool Performance使用指南">
+                <i class="fa fa-chevron-left"></i> 全新Chrome Devtool Performance使用指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nicholas Lee</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/nicholaslee119" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/p/1005055890721762" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第1分钟-PKI的核心是身份证明书的发行"><span class="nav-number">2.</span> <span class="nav-text">第1分钟 - PKI的核心是身份证明书的发行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2分钟-构成PKI的要素只有三个"><span class="nav-number">3.</span> <span class="nav-text">第2分钟 - 构成PKI的要素只有三个</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3分钟-证明书里面的密钥"><span class="nav-number">4.</span> <span class="nav-text">第3分钟 - 证明书里面的密钥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4分钟-什么是”公开密钥“，什么是”私有密钥“"><span class="nav-number">5.</span> <span class="nav-text">第4分钟 - 什么是”公开密钥“，什么是”私有密钥“</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5分钟-”拿什么去信任你？我的证明书“"><span class="nav-number">6.</span> <span class="nav-text">第5分钟 - ”拿什么去信任你？我的证明书“</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nicholas Lee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 96170, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 96170, xid: "2017/10/14/5分钟让你知道什么是PKI/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/96170/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
