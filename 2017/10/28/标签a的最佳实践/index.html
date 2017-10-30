@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Nic&#39;s Utopia">
 <meta property="og:description" content="什么是标签 &amp;lt;a&amp;gt;官方定义是这样的:   The HTML &amp;lt;a&amp;gt; element (or anchor element) creates a hyperlink to other web pages, files, locations within the same page, email addresses, or any other URL.  也就是 &amp;lt;a&amp;g">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-10-28T03:19:46.000Z">
+<meta property="og:updated_time" content="2017-10-30T14:06:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="标签 &amp;lt;a&amp;gt; 的最佳实践">
 <meta name="twitter:description" content="什么是标签 &amp;lt;a&amp;gt;官方定义是这样的:   The HTML &amp;lt;a&amp;gt; element (or anchor element) creates a hyperlink to other web pages, files, locations within the same page, email addresses, or any other URL.  也就是 &amp;lt;a&amp;g">
@@ -330,8 +330,8 @@
 <h1 id="探讨之前"><a href="#探讨之前" class="headerlink" title="探讨之前"></a>探讨之前</h1><p>在分析以上例子之前，我想先探讨一下我们的目的</p>
 <p>前端的一个关键目的就是，尽可能满足不同用户的需求。这里的用户不光指人类，还包括各种搜索引擎，各种辅助设备（比如给视障人士的读屏器等）。</p>
 <h1 id="具体分析"><a href="#具体分析" class="headerlink" title="具体分析"></a>具体分析</h1><p>那么我们试着从不同的“用户”角度来分析上面例子存在的问题</p>
-<p>对于搜索引擎来说，会着重分析标签<code>&lt;a&gt;</code>中的content,也就是例子1中的“点击链接”这个文本，和明显“点击链接”并没有包含对链接的描述，那么搜索引擎也就不明白这个链接的意义。</p>
-<p>对于使用屏幕阅读器的用户来说，会偏向于在不看链接周围的上下文的情况下，在链接之间跳来跳去。也就是说，在大多数情况下，他们只关注标签<code>&lt;a&gt;</code>中的content，而忽略标签周围的上下文。在例子1中，他们也很容易只看的到“点击链接”这个文本，不明白这个链接到底指向何处。</p>
+<p>对于搜索引擎来说，会着重分析标签<code>&lt;a&gt;</code>中的content,也就是例子中的“点击链接”这个文本，很明显“点击链接”并没有包含对链接的描述，那么搜索引擎也就不明白这个链接的意义。</p>
+<p>对于使用屏幕阅读器的用户来说，会偏向于在不看链接周围的上下文的情况下，在链接之间跳来跳去。也就是说，在大多数情况下，他们只关注标签<code>&lt;a&gt;</code>中的content，而忽略标签周围的上下文。在例子中，他们也很容易只看的到“点击链接”这个文本，不明白这个链接到底指向何处。</p>
 <p>就算对于大多数正常使用浏览器的用户来说，人们也容易只被标签<code>&lt;a&gt;</code>中的内容吸引，而忽略上下文。</p>
 <p>那么我们要注意的是：要尽量在标签content中放入有意义的关键字</p>
 <h2 id="第一次改善"><a href="#第一次改善" class="headerlink" title="第一次改善"></a>第一次改善</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://www.self.com/report/sale.pdf"</span>&gt;</span></div><div class="line">    点击链接下载销售报告</div><div class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -391,6 +391,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/29/vueLoader源码解析/" rel="prev" title="vueLoader源码解析">
+                vueLoader源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -472,7 +476,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
