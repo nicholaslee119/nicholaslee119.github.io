@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="官方解析 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
+<meta name="description" content="官方说明 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vueLoader 源码解析之一 整体分析">
 <meta property="og:url" content="http://nicholaslee119.github.io/2017/11/24/vueLoader源码解析/index.html">
 <meta property="og:site_name" content="Nic&#39;s Utopia">
-<meta property="og:description" content="官方解析 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
+<meta property="og:description" content="官方说明 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-24T14:38:45.433Z">
+<meta property="og:updated_time" content="2017-11-24T14:39:38.575Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vueLoader 源码解析之一 整体分析">
-<meta name="twitter:description" content="官方解析 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
+<meta name="twitter:description" content="官方说明 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
 
 
 
@@ -320,7 +320,7 @@
       
 
       
-        <h1 id="官方解析"><a href="#官方解析" class="headerlink" title="官方解析"></a>官方解析</h1><blockquote>
+        <h1 id="官方说明"><a href="#官方说明" class="headerlink" title="官方说明"></a>官方说明</h1><blockquote>
 <p>vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module</p>
 </blockquote>
 <p>简单来说就是：将 <em>.vue 文件变成 </em>.bundle.js，然后放入浏览器运行。 </p>
@@ -526,7 +526,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#官方解析"><span class="nav-number">1.</span> <span class="nav-text">官方解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察输入输出"><span class="nav-number">2.</span> <span class="nav-text">观察输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">2.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">2.2.</span> <span class="nav-text">输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析输出"><span class="nav-number">3.</span> <span class="nav-text">分析输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-部分"><span class="nav-number">3.1.</span> <span class="nav-text">JavaScript 部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-部分"><span class="nav-number">3.2.</span> <span class="nav-text">Template 部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Style-部分"><span class="nav-number">3.3.</span> <span class="nav-text">Style 部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后续"><span class="nav-number">4.</span> <span class="nav-text">后续</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#官方说明"><span class="nav-number">1.</span> <span class="nav-text">官方说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察输入输出"><span class="nav-number">2.</span> <span class="nav-text">观察输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">2.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">2.2.</span> <span class="nav-text">输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析输出"><span class="nav-number">3.</span> <span class="nav-text">分析输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-部分"><span class="nav-number">3.1.</span> <span class="nav-text">JavaScript 部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-部分"><span class="nav-number">3.2.</span> <span class="nav-text">Template 部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Style-部分"><span class="nav-number">3.3.</span> <span class="nav-text">Style 部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后续"><span class="nav-number">4.</span> <span class="nav-text">后续</span></a></li></ol></div>
             
 
           </div>
