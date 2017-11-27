@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Nic&#39;s Utopia">
 <meta property="og:description" content="官方说明 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-25T15:05:53.057Z">
+<meta property="og:updated_time" content="2017-11-27T13:37:42.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-loader 源码解析系列之 整体分析">
 <meta name="twitter:description" content="官方说明 vue-loader is a loader for Webpack that can transform Vue components written in the following format into a plain JavaScript module  简单来说就是：将 .vue 文件变成 .bundle.js，然后放入浏览器运行。  观察输入输出输入测试是最好的文档，所以我">
@@ -352,7 +352,7 @@
 <p>style 涉及的 loader 较多，一个一个来分析， 从上代码可知，basic.vue 先后要被 selector, style-compiler, css-loader 以及 vue-style-loader 处理。</p>
 <p>selector (参数type=style) 的处理结果是将 basic.vue 中的 css 抽出来之后交给 style-compiler 处理成 css, 然后交给 css-loader 处理生成 module, 最后通过 vue-style-loader 将 css 放在 <code>&lt;style&gt;</code> 里面，然后注入到 HTML 里。</p>
 <p>注意，这里之所以没有用 style-loader 是因为 vue-style-loader 是在 fork 了 style-loader 的基础上，增加了后端绘制 (SSR) 的支持。具体的不同，读者可以查看官方文档，笔者这里不再累述。</p>
-<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>通过上面的介绍，想必读者对 vue-loader 以及它涉及的几个 loader 的作用有了一个大概的了解。</p>
+<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>通过上面的介绍，想必读者已经对 vue-loader 以及它涉及的几个 loader 的作用有了一个大概的了解。</p>
 <p>那么接下来，在后续文章中我们来开始一个个分析这几个 loader 的源码。</p>
 <ul>
 <li>vue-loader 源码解析之二 selector (写作中)</li>
