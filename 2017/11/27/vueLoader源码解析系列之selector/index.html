@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Frontend, Web, Techology, Music, Post rock, Photographic" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔者系 vue-loader 贡献者之一（#16）  前言  vue-loader 源码解析系列之一，阅读该文章之前，请大家首先参考大纲 vue-loader 源码解析系列之 整体分析 selector 做了什么12345678910111213const path = require(&apos;path&apos;)const parse = require(&apos;./parser&apos;)const loa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-loader 源码解析系列之 selector">
+<meta property="og:url" content="http://nicholaslee119.github.io/2017/11/27/vueLoader源码解析系列之selector/index.html">
+<meta property="og:site_name" content="Nic&#39;s Utopia">
+<meta property="og:description" content="笔者系 vue-loader 贡献者之一（#16）  前言  vue-loader 源码解析系列之一，阅读该文章之前，请大家首先参考大纲 vue-loader 源码解析系列之 整体分析 selector 做了什么12345678910111213const path = require(&apos;path&apos;)const parse = require(&apos;./parser&apos;)const loa">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-02T01:26:52.852Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue-loader 源码解析系列之 selector">
+<meta name="twitter:description" content="笔者系 vue-loader 贡献者之一（#16）  前言  vue-loader 源码解析系列之一，阅读该文章之前，请大家首先参考大纲 vue-loader 源码解析系列之 整体分析 selector 做了什么12345678910111213const path = require(&apos;path&apos;)const parse = require(&apos;./parser&apos;)const loa">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://nicholaslee119.github.io/2017/11/27/vueLoader源码解析系列之selector/"/>
+
+
+
+
+
+  <title>vue-loader 源码解析系列之 selector | Nic's Utopia</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-107380729-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nic's Utopia</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://nicholaslee119.github.io/2017/11/27/vueLoader源码解析系列之selector/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nicholas Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nic's Utopia">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">vue-loader 源码解析系列之 selector</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-27T22:57:45+09:00">
+                2017-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/27/vueLoader源码解析系列之selector/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/27/vueLoader源码解析系列之selector/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>笔者系 vue-loader 贡献者之一（#16）</p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  vue-loader 源码解析系列之一，阅读该文章之前，请大家首先参考大纲 <a href="https://nicholaslee119.github.io/2017/11/24/vueLoader%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">vue-loader 源码解析系列之 整体分析</a></p>
+<h1 id="selector-做了什么"><a href="#selector-做了什么" class="headerlink" title="selector 做了什么"></a>selector 做了什么</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</div><div class="line"><span class="keyword">const</span> parse = <span class="built_in">require</span>(<span class="string">'./parser'</span>)</div><div class="line"><span class="keyword">const</span> loaderUtils = <span class="built_in">require</span>(<span class="string">'loader-utils'</span>)</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">content</span>) </span>&#123;</div><div class="line">  <span class="comment">// 略</span></div><div class="line">  <span class="keyword">const</span> query = loaderUtils.getOptions(<span class="keyword">this</span>) || &#123;&#125;</div><div class="line">  <span class="comment">// 略</span></div><div class="line">  <span class="keyword">const</span> parts = parse(content, filename, <span class="keyword">this</span>.sourceMap, sourceRoot, query.bustCache)</div><div class="line">  <span class="keyword">let</span> part = parts[query.type]</div><div class="line">  <span class="comment">// 略</span></div><div class="line">  <span class="keyword">this</span>.callback(<span class="literal">null</span>, part.content, part.map)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>大家可以看到，selector的代码非常简单，<br>通过 parser 将 .vue 解析成对象 parts, 里面有分别 style, script, template。可以根据不同的 query, 返回对应的部分。<br>很明显那么这个 parser 完成了分析分解 .vue 的工作，那么让我们继续深入 parser</p>
+<h1 id="parser-做了什么"><a href="#parser-做了什么" class="headerlink" title="parser 做了什么"></a>parser 做了什么</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> compiler = <span class="built_in">require</span>(<span class="string">'vue-template-compiler'</span>)</div><div class="line"><span class="keyword">const</span> cache = <span class="built_in">require</span>(<span class="string">'lru-cache'</span>)(<span class="number">100</span>)</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">content, filename, needMap, sourceRoot, bustCache</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">const</span> cacheKey = hash(filename + content)</div><div class="line">  <span class="comment">// 略</span></div><div class="line">  <span class="keyword">let</span> output = cache.get(cacheKey)</div><div class="line">  <span class="keyword">if</span> (output) <span class="keyword">return</span> output</div><div class="line">  output = compiler.parseComponent(content, &#123; <span class="attr">pad</span>: <span class="string">'line'</span> &#125;)</div><div class="line">  <span class="keyword">if</span> (needMap) &#123;</div><div class="line">    <span class="comment">// 略去了生成 sourceMap 的代码</span></div><div class="line">  &#125;</div><div class="line">  cache.set(cacheKey, output)</div><div class="line">  <span class="keyword">return</span> output</div><div class="line">&#125;</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">同样的，为了方便读者理解主要流程，笔者去掉了部分代码。</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">从上面代码可以看到，.vue 解析的工作其实是交给了 compiler.parseComponent 去完成，那么我们需要继续深入 compiler。</span></div><div class="line"><span class="string">注意，这里 vue-template-compiler 并不是 vue-loader 的一部分了，从 vue-template-compiler 的 npm 主页可以了解到， vue-template-compiler 是 vue 本体的一部分</span></div><div class="line"><span class="string">并不是一个单独的 package。通过查看文档可知，compiler.parseComponent 的逻辑在 vue/src/sfc/parser.js 里。</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">源码如下</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># parseComponent 做了什么</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">`</span><span class="string">``</span>js</div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Parse a single-file component (*.vue) file into an SFC Descriptor Object.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">parseComponent</span> (<span class="params"></span></span></div><div class="line"><span class="function"><span class="params">  content: string,</span></span></div><div class="line"><span class="function"><span class="params">  options?: Object = &#123;&#125;</span></span></div><div class="line"><span class="function"><span class="params"> </span>): <span class="title">SFCDescriptor</span> </span>&#123;</div><div class="line">  <span class="keyword">const</span> sfc: SFCDescriptor = &#123;</div><div class="line">    template: <span class="literal">null</span>,</div><div class="line">    script: <span class="literal">null</span>,</div><div class="line">    styles: [],</div><div class="line">    customBlocks: []</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">let</span> depth = <span class="number">0</span></div><div class="line">  <span class="keyword">let</span> currentBlock: ?(SFCBlock | SFCCustomBlock) = <span class="literal">null</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">start</span> (<span class="params"></span></span></div><div class="line"><span class="function"><span class="params">    tag: string,</span></span></div><div class="line"><span class="function"><span class="params">    attrs: Array&lt;Attribute&gt;,</span></span></div><div class="line"><span class="function"><span class="params">    unary: boolean,</span></span></div><div class="line"><span class="function"><span class="params">    start: number,</span></span></div><div class="line"><span class="function"><span class="params">    end: number</span></span></div><div class="line"><span class="function"><span class="params">  </span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">checkAttrs</span> (<span class="params">block: SFCBlock, attrs: Array&lt;Attribute&gt;</span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">end</span> (<span class="params">tag: string, start: number, end: number</span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">padContent</span> (<span class="params">block: SFCBlock | SFCCustomBlock, pad: true | <span class="string">"line"</span> | <span class="string">"space"</span></span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  parseHTML(content, &#123;</div><div class="line">    start,</div><div class="line">    end</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="keyword">return</span> sfc</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>parseComponent 里面有以下变量</p>
+<ul>
+<li><p>处理对象 sfc</p>
+<p>把 .vue 里的 css, javaScript, html 抽离出来之后，存放到找个对象里面 </p>
+</li>
+<li><p>变量 depth</p>
+<p>当前正在处理的节点的深度，比方说，对于 <code>&lt;template&gt;&lt;div&gt;&lt;p&gt;foo&lt;/p&gt;&lt;/div&gt;&lt;/template</code>来说，处理到 <code>foo</code> 时，当前深度就是 3, 处理到 <code>&lt;/div&gt;</code> 时，当前深度就是 2 。</p>
+</li>
+<li><p>currentBlock </p>
+<p>当前正在处理的节点，以及该节点的 attr 和 content 等信息。  </p>
+</li>
+<li><p>函数 start</p>
+<p>遇到 openTag 节点时，对 openTag 的相关处理。逻辑不是很复杂，读者可以直接看源码。有一点值得注意的是，style 是用 array 形式存储的</p>
+</li>
+<li><p>函数 end</p>
+<p>遇到 closeTag 节点时，对 closeTag 的相关处理。</p>
+</li>
+<li><p>函数 checkAttrs</p>
+<p>对当前节点的 attrs 的相关处理</p>
+</li>
+<li><p>函数 parseHTML</p>
+<p>这是和一个外部的函数，传入了 content (其实也就是 .vue 的内容)以及由 start和 end 两个函数组成的对象。看来，这个 parseHTML 之才是分解分析 .vue 的关键</p>
+<p>跟之前一样，我们要继续深入 parseHTML 函数来分析，它到底对 .vue 做了些什么，源码如下</p>
+</li>
+</ul>
+<h1 id="parseHTML-做了什么"><a href="#parseHTML-做了什么" class="headerlink" title="parseHTML 做了什么"></a>parseHTML 做了什么</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">parseHTML</span> (<span class="params">html, options</span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> stack = []</div><div class="line">  <span class="keyword">const</span> expectHTML = options.expectHTML</div><div class="line">  <span class="keyword">const</span> isUnaryTag = options.isUnaryTag || no</div><div class="line">  <span class="keyword">const</span> canBeLeftOpenTag = options.canBeLeftOpenTag || no</div><div class="line">  <span class="keyword">let</span> index = <span class="number">0</span></div><div class="line">  <span class="keyword">let</span> last, lastTag</div><div class="line">  <span class="keyword">while</span> (html) &#123;</div><div class="line">    last = html</div><div class="line">    <span class="keyword">if</span> (!lastTag || !isPlainTextElement(lastTag)) &#123;</div><div class="line">      <span class="comment">// 这里分离了template</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="comment">// 这里分离了style/script</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 略</span></div><div class="line"></div><div class="line">  <span class="comment">// 前进n个字符</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">advance</span> (<span class="params">n</span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 解析 openTag 比如 &lt;template&gt;</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">parseStartTag</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 处理 openTag</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleStartTag</span> (<span class="params">match</span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">    <span class="keyword">if</span> (options.start) &#123;</div><div class="line">      options.start(tagName, attrs, unary, match.start, match.end)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 处理 closeTag</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">parseEndTag</span> (<span class="params">tagName, start, end</span>) </span>&#123;</div><div class="line">    <span class="comment">// 略</span></div><div class="line">    <span class="keyword">if</span> (options.start) &#123;</div><div class="line">      options.start(tagName, [], <span class="literal">false</span>, start, end)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (options.end) &#123;</div><div class="line">      options.end(tagName, start, end)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>深入到这一步，我想再提醒一下读者，selector的目的是将 .vue 中的 template, javaScript, css 分离出来。带着这个目的意识，我们再来审视这个 parseHTML。</p>
+<p>parseHTML 整个函数的组成是：</p>
+<ul>
+<li><p>一个 while 循环</p>
+<p>在 while 循环中，存在两个大的分支，一个用来分析 template ，一个是用来分析 script 和 style。</p>
+</li>
+<li><p>函数 advance</p>
+<p>向前跳过文本</p>
+</li>
+<li><p>函数 parseStartTag</p>
+<p>判断当前的 node 是不是 openTag</p>
+</li>
+<li><p>函数 handleStartTag</p>
+<p>处理 openTag, 这里就用到了之前提到的 start() 函数</p>
+</li>
+<li><p>函数 parseEndTag</p>
+<p>判断当前的 node 是不是 closeTag，同时这里也用到了 end() 函数</p>
+</li>
+</ul>
+<p>通过以上各个函数的组合，在while循环中就将 sfc 分割成了三个不同的部分，读者可以对比我的注释和源码自行解读源码逻辑。</p>
+<p>顺便在这里吐个槽，很明显这里的 parseHTML 是函数名是有问题的，parseHTML 应该叫做 parseSFC 比较合适。</p>
+<ul>
+<li><a href="(https://nicholaslee119.github.io/2017/11/24/vueLoader%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">vue-loader 源码解析之一 整体分析</a>)</li>
+<li>vue-loader 源码解析之三 style-compiler (写作中)</li>
+<li>vue-loader 源码解析之四 template-compiler (写作中)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/24/vueLoader源码解析/" rel="next" title="vue-loader 源码解析系列之 整体分析">
+                <i class="fa fa-chevron-left"></i> vue-loader 源码解析系列之 整体分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nicholas Lee</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/nicholaslee119" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/p/1005055890721762" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#selector-做了什么"><span class="nav-number">2.</span> <span class="nav-text">selector 做了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#parser-做了什么"><span class="nav-number">3.</span> <span class="nav-text">parser 做了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#parseHTML-做了什么"><span class="nav-number">4.</span> <span class="nav-text">parseHTML 做了什么</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nicholas Lee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 96170, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 96170, xid: "2017/11/27/vueLoader源码解析系列之selector/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/96170/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>
