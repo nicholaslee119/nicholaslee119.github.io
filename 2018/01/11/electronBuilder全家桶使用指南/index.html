@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-bu">
+<meta name="description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder 是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="electronBuilder全家桶使用指南">
+<meta property="og:title" content="electron-builder 全家桶使用指南">
 <meta property="og:url" content="http://nicholaslee119.github.io/2018/01/11/electronBuilder全家桶使用指南/index.html">
 <meta property="og:site_name" content="Nic&#39;s Utopia">
-<meta property="og:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-bu">
+<meta property="og:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder 是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-b">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-11T12:59:14.711Z">
+<meta property="og:updated_time" content="2018-01-11T13:59:33.597Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="electronBuilder全家桶使用指南">
-<meta name="twitter:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-bu">
+<meta name="twitter:title" content="electron-builder 全家桶使用指南">
+<meta name="twitter:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder 是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-b">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>electronBuilder全家桶使用指南 | Nic's Utopia</title>
+  <title>electron-builder 全家桶使用指南 | Nic's Utopia</title>
   
 
 
@@ -258,7 +258,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">electronBuilder全家桶使用指南</h2>
+          <h2 class="post-title" itemprop="name headline">electron-builder 全家桶使用指南</h2>
         
 
         <div class="post-meta">
@@ -323,7 +323,7 @@
         <blockquote>
 <p>笔者系 electron-builder 贡献者之一（#12）</p>
 </blockquote>
-<h1 id="electron-builder是什么"><a href="#electron-builder是什么" class="headerlink" title="electron-builder是什么"></a>electron-builder是什么</h1><p>官方解释如下：</p>
+<h1 id="electron-builder-是什么"><a href="#electron-builder-是什么" class="headerlink" title="electron-builder 是什么"></a>electron-builder 是什么</h1><p>官方解释如下：</p>
 <blockquote>
 <p>A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box</p>
 </blockquote>
@@ -594,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#electron-builder是什么"><span class="nav-number">1.</span> <span class="nav-text">electron-builder是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#署名-打包-发布流程"><span class="nav-number">2.</span> <span class="nav-text">署名/打包/发布流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置署名环节所需信息"><span class="nav-number">2.1.</span> <span class="nav-text">配置署名环节所需信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置打包环节所需信息"><span class="nav-number">2.2.</span> <span class="nav-text">配置打包环节所需信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置发布环节所需信息"><span class="nav-number">2.3.</span> <span class="nav-text">配置发布环节所需信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bintray"><span class="nav-number">2.3.1.</span> <span class="nav-text">Bintray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GenericServer"><span class="nav-number">2.3.2.</span> <span class="nav-text">GenericServer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GithubOptions"><span class="nav-number">2.3.3.</span> <span class="nav-text">GithubOptions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S3Options"><span class="nav-number">2.3.4.</span> <span class="nav-text">S3Options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpacesOptions"><span class="nav-number">2.3.5.</span> <span class="nav-text">SpacesOptions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#署名-打包-发布-一键完成"><span class="nav-number">2.4.</span> <span class="nav-text">署名/打包/发布 一键完成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动更新功能"><span class="nav-number">3.</span> <span class="nav-text">自动更新功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录：有更新服务器的自动更新方案"><span class="nav-number">4.</span> <span class="nav-text">附录：有更新服务器的自动更新方案</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#electron-builder-是什么"><span class="nav-number">1.</span> <span class="nav-text">electron-builder 是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#署名-打包-发布流程"><span class="nav-number">2.</span> <span class="nav-text">署名/打包/发布流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置署名环节所需信息"><span class="nav-number">2.1.</span> <span class="nav-text">配置署名环节所需信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置打包环节所需信息"><span class="nav-number">2.2.</span> <span class="nav-text">配置打包环节所需信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置发布环节所需信息"><span class="nav-number">2.3.</span> <span class="nav-text">配置发布环节所需信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bintray"><span class="nav-number">2.3.1.</span> <span class="nav-text">Bintray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GenericServer"><span class="nav-number">2.3.2.</span> <span class="nav-text">GenericServer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GithubOptions"><span class="nav-number">2.3.3.</span> <span class="nav-text">GithubOptions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S3Options"><span class="nav-number">2.3.4.</span> <span class="nav-text">S3Options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpacesOptions"><span class="nav-number">2.3.5.</span> <span class="nav-text">SpacesOptions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#署名-打包-发布-一键完成"><span class="nav-number">2.4.</span> <span class="nav-text">署名/打包/发布 一键完成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动更新功能"><span class="nav-number">3.</span> <span class="nav-text">自动更新功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录：有更新服务器的自动更新方案"><span class="nav-number">4.</span> <span class="nav-text">附录：有更新服务器的自动更新方案</span></a></li></ol></div>
             
 
           </div>
