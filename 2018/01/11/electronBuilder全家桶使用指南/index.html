@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Nic&#39;s Utopia">
 <meta property="og:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder 是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-b">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-11T13:59:33.597Z">
+<meta property="og:updated_time" content="2018-01-12T14:28:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="electron-builder 全家桶使用指南">
 <meta name="twitter:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder 是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-b">
@@ -425,7 +425,7 @@
 <li><a href="https://github.com/NucleusPowered/Nucleus" target="_blank" rel="external">Nucleus</a> - 这是一个由 Atlassian 公司维护的 update server, 它可以同时支持多个 app 和 channel。而且因为是通过静态文件服务器实现的，所以大大减少了计算消耗。</li>
 </ul>
 <p>大家可以根据自己的需求来选择搭建自己的更新服务器，具体做法可以参考各自的 GitHub 。</p>
-<p>而在 app 方面，只需要增加以下代码，就可以实现最近基本的更新检测</p>
+<p>而在 app 方面，只需要增加以下代码，就可以实现最基本的更新检测</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'app'</span>);</div><div class="line"><span class="keyword">var</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>);</div><div class="line"><span class="keyword">var</span> autoUpdater = <span class="built_in">require</span>(<span class="string">'auto-updater'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> platform = os.platform() + <span class="string">'_'</span> + os.arch();</div><div class="line"><span class="keyword">var</span> version = app.getVersion();</div><div class="line"></div><div class="line">autoUpdater.setFeedURL(<span class="string">'http://download.myapp.com/update/'</span>+platform+<span class="string">'/'</span>+version);</div></pre></td></tr></table></figure>
 
       
