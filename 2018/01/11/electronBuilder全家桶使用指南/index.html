@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Nic&#39;s Utopia">
 <meta property="og:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder 是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-b">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-21T01:40:27.890Z">
+<meta property="og:updated_time" content="2018-01-28T14:38:09.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用 electron-builder 实现 electron app 的署名／打包／发布以及自动更新">
 <meta name="twitter:description" content="笔者系 electron-builder 贡献者之一（#12）  electron-builder 是什么官方解释如下：  A complete solution to package and build a ready for distribution Electron app with “auto update” support out of the box  简单来说，electron-b">
@@ -384,7 +384,7 @@
 </tbody>
 </table>
 <p>注意：如果你是在 macOS 上打包面向 windows 平台的安装器，必须增加两个不同的环境变量 WIN_CSC_LINK 和 WIN_CSC_KEY_PASSWORD</p>
-<h2 id="配置打包环节所需信息"><a href="#配置打包环节所需信息" class="headerlink" title="配置打包环节所需信息"></a>配置打包环节所需信息</h2><p>所谓打包环节所需信息，就是指定安装器（installer）的一系列配置信息。比如说运行环境，安装器格式，版权信息，安装器命名等等。这些信息都是在 package.json 中配置。比如：</p>
+<h2 id="配置打包环节所需信息"><a href="#配置打包环节所需信息" class="headerlink" title="配置打包环节所需信息"></a>配置打包环节所需信息</h2><p>所谓打包环节所需的信息，就是指定安装器（installer）的一系列配置信息。比如说运行环境，安装器格式，版权信息，安装器命名等等。这些信息都是在 package.json 中配置。比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&quot;win&quot;: &#123;</div><div class="line">  &quot;target&quot;: [</div><div class="line">  &#123;</div><div class="line">  &quot;target&quot;: &quot;nsis&quot;,</div><div class="line">  &quot;arch&quot;: [</div><div class="line">  &quot;x64&quot;,</div><div class="line">  &quot;ia32&quot;</div><div class="line">  ],</div><div class="line">  ......</div><div class="line">  &#125;</div><div class="line">  ]</div><div class="line">&#125;,</div><div class="line"></div><div class="line">&quot;mac&quot;: &#123;</div><div class="line">  &quot;category&quot;: &quot;your.app.category.type&quot;,</div><div class="line">  &quot;target&quot;: [</div><div class="line">  &quot;zip&quot;,</div><div class="line">  &quot;dmg&quot;</div><div class="line">  ],</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
 <p>更多详细配置，请参考</p>
 <ul>
