@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/2.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/3.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/4.png">
-<meta property="og:updated_time" content="2018-04-26T15:31:59.200Z">
+<meta property="og:updated_time" content="2018-04-26T15:37:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我在日本最大的房地产信息网站SUUMO做重构">
 <meta name="twitter:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
@@ -344,7 +344,7 @@
 <li>后端技术栈： 至于后端的架构就不清楚了，因为是外包出去的，开发和维护都是在外包公司在做。对，你没有看错，日本最大的房地产信息平台，最核心的数据都交给外包公司在做。</li>
 </ul>
 <p>那么，自己公司能做什么呢？只剩下前端了对吧。那我们来看一看，这个前端他们是怎么做的。</p>
-<h2 id="所谓大前端"><a href="#所谓大前端" class="headerlink" title="所谓大前端"></a>所谓大前端</h2><p>放在公司内开发的，也就是自主开发的（这里的自主开发，其实也有一半左右是常年入驻公司的外包人员），只剩下php和前端这块了。那么有朋友会问了，不是说没有后端吗？这里不是有php吗？<br>入行比较早的朋友们可能都知道，在没有AngularJS，ReactJS，VueJS等等前端框架之前，网站架构的模式。早些年间，模版引擎都是在后端的。后端获取必要数据之后，根据模版绘制成基本可用的HTML发送给前端，前端获取了绘制好的HTML后，只是做一些动画或者AJAX异步请求等等动作。这里的php就是做的模版绘制的工作，还有就是访问API获取处理数据。在这种构架下，可以将php归为大前端范畴。</p>
+<h2 id="所谓大前端"><a href="#所谓大前端" class="headerlink" title="所谓大前端"></a>所谓大前端</h2><p>放在公司内开发的，也就是自主开发的（这里的自主开发，其实也有一半左右是常年入驻公司的外包人员），只剩下PHP和前端这块了。那么有朋友会问了，不是说没有后端吗？这里不是有PHP吗？<br>入行比较早的朋友们可能都知道，在没有AngularJS，ReactJS，VueJS等等前端框架之前，网站架构的模式。早些年间，模版引擎都是在后端的。后端获取必要数据之后，根据模版绘制成基本可用的HTML发送给前端，前端获取了绘制好的HTML后，只是做一些动画或者AJAX异步请求等等动作。这里的PHP就是做的模版绘制的工作，还有就是访问API获取处理数据。在这种构架下，可以将PHP归为大前端范畴。</p>
 <h1 id="面临的问题"><a href="#面临的问题" class="headerlink" title="面临的问题"></a>面临的问题</h1><p>作为日本最大级别的房地产信息平台（虽然日活跃也就40万而已），前端构架如此简陋，肯定是有问题的。<br>那么问题在哪里呢？</p>
 <h2 id="技术问题"><a href="#技术问题" class="headerlink" title="技术问题"></a>技术问题</h2><ul>
 <li><p>JS/CSS层没有框架，DOM的操作全是直接手动操作，自家开发的类似Jquery的库也是时不时出现一些很难排查的BUG，重复代码和全局函数漫天飞。</p>
@@ -364,7 +364,7 @@
 <h2 id="导入webpack"><a href="#导入webpack" class="headerlink" title="导入webpack"></a>导入webpack</h2><p>然后就是将webpack导入项目，导入的具体形式是：以界面为单位，每一个页面对应一个 entry 。在 entry 中将每个页面所引用的 JavaScript import 进来。这样就把所有的JavaScript就都经由webpack打包处理了。这里的webpack多页面打包处理会存在一个问题就是，重复打包。多个页面往往会 import 一些同样的包。这里我用了 code split 来解决了这个问题，本来 code split 的目的是按需加载，避免过大的包。我这里用 code split 将所有包做成了异步包，这样一来，所有的包都是按需加载并且可以很好的复用。</p>
 <p>重构前：<br><img src="/images/suumo/2.png" width="70%" height="70%"></p>
 <p>重构后：<br><img src="/images/suumo/3.png" width="70%" height="70%"></p>
-<p>因为导入了webpack就可以做很多有意思的事情了，比如说，我在公司内部做了一个类似 storybook 的工具，与 storybook不同的是，我可以运行 php 模版。当然，用ES6写JavaScript也成为可能。</p>
+<p>因为导入了webpack就可以做很多有意思的事情了，比如说，我在公司内部做了一个类似 storybook 的工具，与 storybook不同的是，我可以运行 PHP 模版。当然，用ES6写JavaScript也成为可能。</p>
 <p>还导入了 eslint，以及 postCSS ，各种先进工具。大大提高了工作效率和代码品质。</p>
 <h2 id="选择框架"><a href="#选择框架" class="headerlink" title="选择框架"></a>选择框架</h2><p>导入了webpack之后最重要的是，导入前端框架。</p>
 <p>但是各种对比，最后选择了VueJS作为框架进行导入。有这么几个原因 </p>
@@ -375,7 +375,7 @@
 </li>
 </ul>
 <p>一切看起来都是那么顺利，但是实际导入的时候，却遇到了很多问题。</p>
-<h2 id="越不过去的坎儿"><a href="#越不过去的坎儿" class="headerlink" title="越不过去的坎儿"></a>越不过去的坎儿</h2><p>SEO对我们网站非常非常重要，而且当时google正式提出了mobile index first的政策，也就是说以后搜索都要从移动端网站走了。</p>
+<h2 id="越不过去的坎儿"><a href="#越不过去的坎儿" class="headerlink" title="越不过去的坎儿"></a>越不过去的坎儿</h2><p>SEO对我们网站非常非常重要，而且当时Google正式提出了mobile index first的政策，也就是说以后搜索都要从移动端网站走了。</p>
 <p>PHP的模版引擎虽然古老，但是对SEO非常友好，经过常年的修改和运营，已经是非常优的状态了。公司对这块非常看重。大家都知道，虽然VueJS 理论上通过 SSR 解决了 SEO 的问题，毕竟是新技术，对于大公司，而且是日本大公司，是非常非常谨慎的。那有朋友就会说了，可以小范围实验一下嘛。まあな、我要先说说组织架构了</p>
 <p><img src="/images/suumo/4.png" width="70%" height="70%"></p>
 <p>公司的移动端网站的开发不止一个组，开发的组是根据市场领域来区分的，比如说土地市场，是由土体市场小组领导的，土地领域的网站开发是由土地市场小组领导的，新的功能的开发是有土地小组发起，然后由土地小组下面的程序员开发的。总体来说，网站是同一个网站，根据市场分组，每个分组有自己的程序开发。但是为了全站的维护和更新，还有一个全站的开发小组，我就在那个全站的开发小组里面。但是在组织上，全站的小组对其他市场的小组并没有控制权利，控制权掌握在市场小组的产品经理手上。<br>整个网站大大小小有5，6个小组。各自为阵，组织上有壁垒，如果级别不够，想全站推动非常非常困难。</p>
@@ -390,9 +390,9 @@
 <h2 id="组件化是良药"><a href="#组件化是良药" class="headerlink" title="组件化是良药"></a>组件化是良药</h2><p>不管是AngularJS也好，ReactJS也好，VueJS也好，他们提供的数据绑定，虚拟DOM这些炫酷的功能，其实对我们这种传统大型CMS网站，没有太多的用武之地。但是，他们其中很重要的一个概念是非常适用于我们网站的，那就是组件化(Web Component)。</p>
 <p>那么问题来了，如何在没有框架的情况下实现组件化呢？</p>
 <h2 id="webpack-component-loader"><a href="#webpack-component-loader" class="headerlink" title="webpack-component-loader"></a>webpack-component-loader</h2><p>具体的解决方案，在我的另外一篇文章中具体阐述过了，</p>
-<p><a href="https://nicholaslee119.github.io/2017/10/03/%E5%A6%82%E4%BD%95%E5%9C%A8%E6%B2%A1%E6%9C%89%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%8C%96/">如何在没有大型前端框架下组组件化</a></p>
+<p><a href="https://nicholaslee119.github.io/2017/10/03/%E5%A6%82%E4%BD%95%E5%9C%A8%E6%B2%A1%E6%9C%89%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%8C%96/">如何在没有大型前端框架的情况下实现组件化</a></p>
 <p>总结一下就是：通过自己实现的webpack-loader，在开发阶段，将Template/JS/CSS按照组件单位放到一起，编译阶段将他们各自移动到他们本来属于的地方。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我的loader导入之后，实现了组件化，但是又没有改变既有的技术展，更加没有影响到SEO，效率大大提高。而且按照大家都推行的组件化的大潮，以后迁移到VueJS，ReactJS或者以后新的框架（只要他符合组件化思想）迁移成本都不是特别大。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我的 loader 导入之后，实现了组件化，但是又没有改变既有的技术栈，更加没有影响到SEO，效率大大提高。而且按照大家都推行的组件化的大潮，以后迁移到VueJS，ReactJS或者以后新的框架（只要他符合组件化思想）迁移成本都不是特别大。</p>
 
       
     </div>
