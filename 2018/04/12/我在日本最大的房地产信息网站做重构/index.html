@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Frontend, Web, Techology, Music, Post rock, Photographic" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我在日本最大的房地产信息网站做重构">
+<meta property="og:url" content="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站做重构/index.html">
+<meta property="og:site_name" content="Nic&#39;s Utopia">
+<meta property="og:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/1.png">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/2.png">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/3.png">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/4.png">
+<meta property="og:updated_time" content="2018-04-26T15:12:21.042Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我在日本最大的房地产信息网站做重构">
+<meta name="twitter:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
+<meta name="twitter:image" content="http://nicholaslee119.github.io/images/suumo/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站做重构/"/>
+
+
+
+
+
+  <title>我在日本最大的房地产信息网站做重构 | Nic's Utopia</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-107380729-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nic's Utopia</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站做重构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nicholas Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nic's Utopia">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">我在日本最大的房地产信息网站做重构</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T23:47:13+09:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/12/我在日本最大的房地产信息网站做重构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/12/我在日本最大的房地产信息网站做重构/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="日本互联网行业现状"><a href="#日本互联网行业现状" class="headerlink" title="日本互联网行业现状"></a>日本互联网行业现状</h1><p>去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面： </p>
+<ol>
+<li><p>总体技术一般：<br>日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。</p>
+</li>
+<li><p>开发体制落后：<br>因为日本的制造业非常发达，取得过非常大的成功，很多实业产品都是通过层层外包实现的。简单来说就是OES，贴牌。通过这种模式，他们在传统制造业取得了非常大的成功，所以对于兴起的互联网行业也毫不犹豫地沿用了这套模式–层层外包。</p>
+</li>
+<li><p>从业人员大多都是半路出家：大多数都非科班出身，基本都是从其他行业转职过来的。不同年龄层的人都有。</p>
+</li>
+</ol>
+<p>以上的原因造成了很多问题，之后我会在后面的例子里具体说明。</p>
+<h1 id="刚入社时的情况"><a href="#刚入社时的情况" class="headerlink" title="刚入社时的情况"></a>刚入社时的情况</h1><p>笔者入职的公司叫リクルート，是一个提供信息咨询的公司，旗下有很多分公司，基本涵盖了日本人生活的各个方面。房地产，美容，酒店预定，二手车，招聘，等等。你可以想象一下，国内大众点评，链家，58同城，携程等等信息提供网站集合在一家公司的情况。笔者入职后具体工作就在题中提到的叫SUUMO的房地产信息平台分公司工作。笔者进入的组，是负责移动端网站的开发维护。</p>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li>前端技术栈：PHP(Zendframework)+模版引擎Smarty+自己开发的类似jQuery的库，整个环境部署在AWS上。</li>
+</ul>
+<p><img src="/images/suumo/1.png" width="70%" height="70%"></p>
+<ul>
+<li>后端技术栈： 至于后端的架构就不清楚了，因为是外包出去的，开发和维护都是在外包公司在做。对，你没有看错，日本最大的房地产信息平台，最核心的数据都交给外包公司在做。</li>
+</ul>
+<p>那么，自己公司能做什么呢？只剩下前端了对吧。那我们来看一看，这个前端他们是怎么做的。</p>
+<h2 id="所谓大前端"><a href="#所谓大前端" class="headerlink" title="所谓大前端"></a>所谓大前端</h2><p>放在公司内开发的，也就是自主开发的（这里的自主开发，其实也有一半左右是常年入驻公司的外包人员），只剩下php和前端这块了。那么有朋友会问了，不是说没有后端吗？这里不是有php吗？<br>入行比较早的朋友们可能都知道，在没有AngularJS，ReactJS，VueJS等等前端框架之前，网站架构的模式。早些年间，模版引擎都是在后端的。后端获取必要数据之后，根据模版绘制成基本可用的HTML发送给前端，前端获取了绘制好的HTML后，只是做一些动画或者AJAX异步请求等等动作。这里的php就是做的模版绘制的工作，还有就是访问API获取处理数据。在这种构架下，可以将php归为大前端范畴。</p>
+<h1 id="面临的问题"><a href="#面临的问题" class="headerlink" title="面临的问题"></a>面临的问题</h1><p>作为日本最大级别的房地产信息平台（虽然日活跃也就40万而已），前端构架如此简陋，肯定是有问题的。<br>那么问题在哪里呢？</p>
+<h2 id="技术问题"><a href="#技术问题" class="headerlink" title="技术问题"></a>技术问题</h2><ul>
+<li><p>JS/CSS层没有框架，DOM的操作全是直接手动操作，自家开发的类似Jquery的库也是时不时出现一些很难排查的BUG，重复代码和全局函数漫天飞。</p>
+</li>
+<li><p>模版引擎在PHP层，有zendframework作为框架，所以多多少少还有些章法，以页面为单位组织着模版代码，但是页面之间有很多重复的代码，造成维护困难。</p>
+</li>
+<li><p>总的来说，就是乱。</p>
+</li>
+</ul>
+<h2 id="组织问题"><a href="#组织问题" class="headerlink" title="组织问题"></a>组织问题</h2><p>至于为什么这么乱，很组织构成有很大关系。</p>
+<p>日本互联网公司是培养产品经理的天堂。我们公司算是大企业，里面的程序员有不少都是正社员。但是大多数的互联网公司，写程序的都是外包人员。只有产品经理是正社员。这样的组织架构就形成了，程序员无条件的<strong>完全无条件</strong>服从于产品经理。就算是正社员的程序员，话语权都不是很高。怎么样，会点日语，想当产品经理还不赶紧来日本？</p>
+<p>以上的组织结构，就造成了为了KPI而赶进度的（動ければいいじゃん）的代码。产品经理看不懂代码，不关心代码质量，跟别说公司高层了。这样的情况下，加上本身程序员本身素质不到位，写出的代码可想而知，反正，外包程序员大多数都是干完一个季度就要走的。</p>
+<p>说多了都是泪，大环境是这样，我一个小小程序员也无法改变，我能做的就是在组内好好推动一下的先进概念技术。</p>
+<h1 id="最初的解决方案"><a href="#最初的解决方案" class="headerlink" title="最初的解决方案"></a>最初的解决方案</h1><p>如果你的公司恰巧也是处于这样的一个很落后的架构的情况下，你也在寻找出路，希望这篇文章能给你一点点启发。</p>
+<p>当时入职的时候，AngularJS已经开始疲软，ReactJS已经无人不晓，VueJS也刚刚开始发力。前端如同春秋战国，各国崛起，一派乱世之像。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>第一反应当然是导入新框架。当然，在导入前端框架之前，需要为导入框架做准备。比如说把混在模版里的JavaScript提取出来，把模版中可以复用的组件抽出来等等细枝末节的工作。</p>
+<h2 id="导入webpack"><a href="#导入webpack" class="headerlink" title="导入webpack"></a>导入webpack</h2><p>然后就是将webpack导入项目，导入的具体形式是：以界面为单位，每一个页面对应一个 entry 。在 entry 中将每个页面所引用的 JavaScript import 进来。这样就把所有的JavaScript就都经由webpack打包处理了。这里的webpack多页面打包处理会存在一个问题就是，重复打包。多个页面往往会 import 一些同样的包。这里我用了 code split 来解决了这个问题，本来 code split 的目的是按需加载，避免过大的包。我这里用 code split 将所有包做成了异步包，这样一来，所有的包都是按需加载并且可以很好的复用。</p>
+<p>重构前：<br><img src="/images/suumo/2.png" width="70%" height="70%"></p>
+<p>重构后：<br><img src="/images/suumo/3.png" width="70%" height="70%"></p>
+<p>因为导入了webpack就可以做很多有意思的事情了，比如说，我在公司内部做了一个类似 storybook 的工具，与 storybook不同的是，我可以运行 php 模版。当然，用ES6写JavaScript也成为可能。</p>
+<p>还导入了 eslint，以及 postCSS ，各种先进工具。大大提高了工作效率和代码品质。</p>
+<h2 id="选择框架"><a href="#选择框架" class="headerlink" title="选择框架"></a>选择框架</h2><p>导入了webpack之后最重要的是，导入前端框架。</p>
+<p>但是各种对比，最后选择了VueJS作为框架进行导入。有这么几个原因 </p>
+<ul>
+<li><p>VueJS上手简单，因为组内外包人员都是半路出家，有做音乐转行过来的，有做拍卖转行过来的，有做销售转行过来的，是的你没有看错，有40多岁的女程序员，有30多岁的单亲妈妈，也有20多岁专科毕业的小朋友。但是有个共同的特点，就是几门固定技术干了不下于5年。要他们去学习熟悉新的技术，时间成本，出错成本都非常高。所以如果能用现有技术，那是非常好的。VueJS的话，HTML/CSS/JavaScript上手就来，我给他们配置好webpack环境，基本上不用学习直接上手。</p>
+</li>
+<li><p>可以部分导入，具体来说就是可以挂载在已经绘制成功的 HTML 节点上，也就是说，在PHP绘制好的HTML上，仍然可以绑定 VueJS 实例。</p>
+</li>
+</ul>
+<p>一切看起来都是那么顺利，但是实际导入的时候，却遇到了很多问题。</p>
+<h2 id="越不过去的坎儿"><a href="#越不过去的坎儿" class="headerlink" title="越不过去的坎儿"></a>越不过去的坎儿</h2><p>SEO对我们网站非常非常重要，而且当时google正式提出了mobile index first的政策，也就是说以后搜索都要从移动端网站走了。</p>
+<p>PHP的模版引擎虽然古老，但是对SEO非常友好，经过常年的修改和运营，已经是非常优的状态了。公司对这块非常看重。大家都知道，虽然VueJS 理论上通过 SSR 解决了 SEO 的问题，毕竟是新技术，对于大公司，而且是日本大公司，是非常非常谨慎的。那有朋友就会说了，可以小范围实验一下嘛。まあな、我要先说说组织架构了</p>
+<p><img src="/images/suumo/4.png" width="70%" height="70%"></p>
+<p>公司的移动端网站的开发不止一个组，开发的组是根据市场领域来区分的，比如说土地市场，是由土体市场小组领导的，土地领域的网站开发是由土地市场小组领导的，新的功能的开发是有土地小组发起，然后由土地小组下面的程序员开发的。总体来说，网站是同一个网站，根据市场分组，每个分组有自己的程序开发。但是为了全站的维护和更新，还有一个全站的开发小组，我就在那个全站的开发小组里面。但是在组织上，全站的小组对其他市场的小组并没有控制权利，控制权掌握在市场小组的产品经理手上。<br>整个网站大大小小有5，6个小组。各自为阵，组织上有壁垒，如果级别不够，想全站推动非常非常困难。</p>
+<h1 id="关于重构的思考"><a href="#关于重构的思考" class="headerlink" title="关于重构的思考"></a>关于重构的思考</h1><p>无法改变的现状如此，只能再想办法。<br>让我们回到原点来看问题，我到底要解决的是什么问题？</p>
+<p>不是SEO问题，也不是PHP需不需要存在的问题，而是要提高开发效率的问题。</p>
+<p>当前的开发效率为什么底下？</p>
+<ul>
+<li>Template的代码的组织以界面为单位，界面之间通用的代码通过复制粘贴解决。重复代码过多，修改起来到处乱窜。</li>
+<li>JS/CSS比Template更乱，各自存在于不同地方，没有按照界面或者功能方式统一划分文件或者文件夹，常常为了寻找一个CSS，JS到处寻找，这些CSS，JS之间也存在非常多重复的地方。</li>
+</ul>
+<p>那么当前的问题，就是组织好，Template/JS/CSS这三者之间的关系，那么怎么组织呢？</p>
+<h2 id="组件化是良药"><a href="#组件化是良药" class="headerlink" title="组件化是良药"></a>组件化是良药</h2><p>不管是AngularJS也好，ReactJS也好，VueJS也好，他们提供的数据绑定，虚拟DOM这些炫酷的功能，其实对我们这种传统大型CMS网站，没有太多的用武之地。但是，他们其中很重要的一个概念是非常适用于我们网站的，那就是组件化(Web Component) [图片]</p>
+<p>那么问题来了，如何在没有框架的情况下实现组件化呢？</p>
+<h2 id="webpack-component-loader"><a href="#webpack-component-loader" class="headerlink" title="webpack-component-loader"></a>webpack-component-loader</h2><p>具体的解决方案，在我的另外一篇文章中具体阐述过了，</p>
+<p><a href="https://nicholaslee119.github.io/2017/10/03/%E5%A6%82%E4%BD%95%E5%9C%A8%E6%B2%A1%E6%9C%89%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%8C%96/">如何在没有大型前端框架下组组件化</a></p>
+<p>总结一下就是：通过自己实现的webpack-loader，在开发阶段，将Template/JS/CSS按照组件单位放到一起，编译阶段将他们各自移动到他们本来属于的地方。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我的loader导入之后，实现了组件化，但是又没有改变既有的技术展，更加没有影响到SEO，效率大大提高。而且按照大家都推行的组件化的大潮，以后迁移到VueJS，ReactJS或者以后新的框架（只要他符合组件化思想）迁移成本都不是特别大。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/11/electronBuilder全家桶使用指南/" rel="next" title="利用 electron-builder 实现 electron app 的署名／打包／发布以及自动更新">
+                <i class="fa fa-chevron-left"></i> 利用 electron-builder 实现 electron app 的署名／打包／发布以及自动更新
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nicholas Lee</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/nicholaslee119" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/p/1005055890721762" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日本互联网行业现状"><span class="nav-number">1.</span> <span class="nav-text">日本互联网行业现状</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#刚入社时的情况"><span class="nav-number">2.</span> <span class="nav-text">刚入社时的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术栈"><span class="nav-number">2.1.</span> <span class="nav-text">技术栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所谓大前端"><span class="nav-number">2.2.</span> <span class="nav-text">所谓大前端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面临的问题"><span class="nav-number">3.</span> <span class="nav-text">面临的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术问题"><span class="nav-number">3.1.</span> <span class="nav-text">技术问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组织问题"><span class="nav-number">3.2.</span> <span class="nav-text">组织问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最初的解决方案"><span class="nav-number">4.</span> <span class="nav-text">最初的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">4.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入webpack"><span class="nav-number">4.2.</span> <span class="nav-text">导入webpack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择框架"><span class="nav-number">4.3.</span> <span class="nav-text">选择框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#越不过去的坎儿"><span class="nav-number">4.4.</span> <span class="nav-text">越不过去的坎儿</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于重构的思考"><span class="nav-number">5.</span> <span class="nav-text">关于重构的思考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化是良药"><span class="nav-number">5.1.</span> <span class="nav-text">组件化是良药</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-component-loader"><span class="nav-number">5.2.</span> <span class="nav-text">webpack-component-loader</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nicholas Lee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 96170, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 96170, xid: "2018/04/12/我在日本最大的房地产信息网站做重构/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/96170/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>
