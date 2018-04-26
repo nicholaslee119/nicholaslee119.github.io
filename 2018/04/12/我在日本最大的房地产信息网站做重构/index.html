@@ -81,7 +81,7 @@
 
 <meta name="description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我在日本最大的房地产信息网站做重构">
+<meta property="og:title" content="我在日本最大的房地产信息网站SUUMO做重构">
 <meta property="og:url" content="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站做重构/index.html">
 <meta property="og:site_name" content="Nic&#39;s Utopia">
 <meta property="og:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
@@ -90,9 +90,9 @@
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/2.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/3.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/4.png">
-<meta property="og:updated_time" content="2018-04-26T15:12:21.042Z">
+<meta property="og:updated_time" content="2018-04-26T15:17:40.469Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我在日本最大的房地产信息网站做重构">
+<meta name="twitter:title" content="我在日本最大的房地产信息网站SUUMO做重构">
 <meta name="twitter:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
 <meta name="twitter:image" content="http://nicholaslee119.github.io/images/suumo/1.png">
 
@@ -130,7 +130,7 @@
 
 
 
-  <title>我在日本最大的房地产信息网站做重构 | Nic's Utopia</title>
+  <title>我在日本最大的房地产信息网站SUUMO做重构 | Nic's Utopia</title>
   
 
 
@@ -263,7 +263,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">我在日本最大的房地产信息网站做重构</h2>
+          <h2 class="post-title" itemprop="name headline">我在日本最大的房地产信息网站SUUMO做重构</h2>
         
 
         <div class="post-meta">
@@ -387,7 +387,7 @@
 <li>JS/CSS比Template更乱，各自存在于不同地方，没有按照界面或者功能方式统一划分文件或者文件夹，常常为了寻找一个CSS，JS到处寻找，这些CSS，JS之间也存在非常多重复的地方。</li>
 </ul>
 <p>那么当前的问题，就是组织好，Template/JS/CSS这三者之间的关系，那么怎么组织呢？</p>
-<h2 id="组件化是良药"><a href="#组件化是良药" class="headerlink" title="组件化是良药"></a>组件化是良药</h2><p>不管是AngularJS也好，ReactJS也好，VueJS也好，他们提供的数据绑定，虚拟DOM这些炫酷的功能，其实对我们这种传统大型CMS网站，没有太多的用武之地。但是，他们其中很重要的一个概念是非常适用于我们网站的，那就是组件化(Web Component) [图片]</p>
+<h2 id="组件化是良药"><a href="#组件化是良药" class="headerlink" title="组件化是良药"></a>组件化是良药</h2><p>不管是AngularJS也好，ReactJS也好，VueJS也好，他们提供的数据绑定，虚拟DOM这些炫酷的功能，其实对我们这种传统大型CMS网站，没有太多的用武之地。但是，他们其中很重要的一个概念是非常适用于我们网站的，那就是组件化(Web Component)。</p>
 <p>那么问题来了，如何在没有框架的情况下实现组件化呢？</p>
 <h2 id="webpack-component-loader"><a href="#webpack-component-loader" class="headerlink" title="webpack-component-loader"></a>webpack-component-loader</h2><p>具体的解决方案，在我的另外一篇文章中具体阐述过了，</p>
 <p><a href="https://nicholaslee119.github.io/2017/10/03/%E5%A6%82%E4%BD%95%E5%9C%A8%E6%B2%A1%E6%9C%89%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%8C%96/">如何在没有大型前端框架下组组件化</a></p>
