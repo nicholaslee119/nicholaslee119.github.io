@@ -81,8 +81,8 @@
 
 <meta name="description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我在日本最大的房地产信息网站SUUMO做重构">
-<meta property="og:url" content="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站SUUMO做重构/index.html">
+<meta property="og:title" content="我在日本最大的房地产信息网站做重构">
+<meta property="og:url" content="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站做重构/index.html">
 <meta property="og:site_name" content="Nic&#39;s Utopia">
 <meta property="og:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
 <meta property="og:locale" content="en">
@@ -90,9 +90,9 @@
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/2.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/3.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/4.png">
-<meta property="og:updated_time" content="2018-04-26T15:37:42.000Z">
+<meta property="og:updated_time" content="2018-04-27T14:12:32.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我在日本最大的房地产信息网站SUUMO做重构">
+<meta name="twitter:title" content="我在日本最大的房地产信息网站做重构">
 <meta name="twitter:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
 <meta name="twitter:image" content="http://nicholaslee119.github.io/images/suumo/1.png">
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站SUUMO做重构/"/>
+  <link rel="canonical" href="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站做重构/"/>
 
 
 
 
 
-  <title>我在日本最大的房地产信息网站SUUMO做重构 | Nic's Utopia</title>
+  <title>我在日本最大的房地产信息网站做重构 | Nic's Utopia</title>
   
 
 
@@ -246,7 +246,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站SUUMO做重构/">
+    <link itemprop="mainEntityOfPage" href="http://nicholaslee119.github.io/2018/04/12/我在日本最大的房地产信息网站做重构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nicholas Lee">
@@ -263,7 +263,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">我在日本最大的房地产信息网站SUUMO做重构</h2>
+          <h2 class="post-title" itemprop="name headline">我在日本最大的房地产信息网站做重构</h2>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/12/我在日本最大的房地产信息网站SUUMO做重构/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/12/我在日本最大的房地产信息网站SUUMO做重构/" itemprop="commentsCount"></span>
+                <a href="/2018/04/12/我在日本最大的房地产信息网站做重构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/12/我在日本最大的房地产信息网站做重构/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -335,7 +335,7 @@
 </li>
 </ol>
 <p>以上的原因造成了很多问题，之后我会在后面的例子里具体说明。</p>
-<h1 id="刚入社时的情况"><a href="#刚入社时的情况" class="headerlink" title="刚入社时的情况"></a>刚入社时的情况</h1><p>笔者入职的公司叫リクルート，是一个提供信息咨询的公司，旗下有很多分公司，基本涵盖了日本人生活的各个方面。房地产，美容，酒店预定，二手车，招聘，等等。你可以想象一下，国内大众点评，链家，58同城，携程等等信息提供网站集合在一家公司的情况。笔者入职后具体工作就在题中提到的叫SUUMO的房地产信息平台分公司工作。笔者进入的组，是负责移动端网站的开发维护。</p>
+<h1 id="刚入社时的情况"><a href="#刚入社时的情况" class="headerlink" title="刚入社时的情况"></a>刚入社时的情况</h1><p>笔者入职的公司叫リクルート，是一个提供信息咨询的公司，旗下有很多分公司，基本涵盖了日本人生活的各个方面。房地产，美容，酒店预定，二手车，招聘，等等。你可以想象一下，国内大众点评，链家，58同城，携程等等信息提供网站集合在一家公司的情况。笔者入职后具体工作就在题中提到的叫的房地产信息平台分公司工作。笔者进入的组，是负责移动端网站的开发维护。</p>
 <h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
 <li>前端技术栈：PHP(Zendframework)+模版引擎Smarty+自己开发的类似jQuery的库，整个环境部署在AWS上。</li>
 </ul>
@@ -381,7 +381,7 @@
 <p>公司的移动端网站的开发不止一个组，开发的组是根据市场领域来区分的，比如说土地市场，是由土体市场小组领导的，土地领域的网站开发是由土地市场小组领导的，新的功能的开发是有土地小组发起，然后由土地小组下面的程序员开发的。总体来说，网站是同一个网站，根据市场分组，每个分组有自己的程序开发。但是为了全站的维护和更新，还有一个全站的开发小组，我就在那个全站的开发小组里面。但是在组织上，全站的小组对其他市场的小组并没有控制权利，控制权掌握在市场小组的产品经理手上。<br>整个网站大大小小有5，6个小组。各自为阵，组织上有壁垒，如果级别不够，想全站推动非常非常困难。</p>
 <h1 id="关于重构的思考"><a href="#关于重构的思考" class="headerlink" title="关于重构的思考"></a>关于重构的思考</h1><p>无法改变的现状如此，只能再想办法。<br>让我们回到原点来看问题，我到底要解决的是什么问题？</p>
 <p>不是SEO问题，也不是PHP需不需要存在的问题，而是要提高开发效率的问题。</p>
-<p>当前的开发效率为什么底下？</p>
+<p>当前的开发效率为什么低下？</p>
 <ul>
 <li>Template的代码的组织以界面为单位，界面之间通用的代码通过复制粘贴解决。重复代码过多，修改起来到处乱窜。</li>
 <li>JS/CSS比Template更乱，各自存在于不同地方，没有按照界面或者功能方式统一划分文件或者文件夹，常常为了寻找一个CSS，JS到处寻找，这些CSS，JS之间也存在非常多重复的地方。</li>
@@ -734,7 +734,7 @@
 		_hcwp.push({widget:"Bloggerstream", widget_id: 96170, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 96170, xid: "2018/04/12/我在日本最大的房地产信息网站SUUMO做重构/"});
+		_hcwp.push({widget:"Stream", widget_id: 96170, xid: "2018/04/12/我在日本最大的房地产信息网站做重构/"});
 		
 
 		(function() {
