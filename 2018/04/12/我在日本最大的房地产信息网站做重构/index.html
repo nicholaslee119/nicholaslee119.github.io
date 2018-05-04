@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/2.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/3.png">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/suumo/4.png">
-<meta property="og:updated_time" content="2018-04-27T14:12:32.974Z">
+<meta property="og:updated_time" content="2018-05-04T11:22:08.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我在日本最大的房地产信息网站做重构">
 <meta name="twitter:description" content="日本互联网行业现状去日本之前就对日本互联网产业的各种奇葩现状有所耳闻，自己过来之后更是亲身经历了很多。总的说来有以下几个方面：   总体技术一般：日本计算机理论研究其实做的非常不错，但是工业运用方面却做的一般，有点儿不思进取的感觉。不思进取到什么程度呢？比如说日本最大的门户网站Yahoo Japan，搜索引擎竟然是直接用的Google的API。  开发体制落后：因为日本的制造业非常发达，取得过非常">
@@ -345,7 +345,7 @@
 </ul>
 <p>那么，自己公司能做什么呢？只剩下前端了对吧。那我们来看一看，这个前端他们是怎么做的。</p>
 <h2 id="所谓大前端"><a href="#所谓大前端" class="headerlink" title="所谓大前端"></a>所谓大前端</h2><p>放在公司内开发的，也就是自主开发的（这里的自主开发，其实也有一半左右是常年入驻公司的外包人员），只剩下PHP和前端这块了。那么有朋友会问了，不是说没有后端吗？这里不是有PHP吗？<br>入行比较早的朋友们可能都知道，在没有AngularJS，ReactJS，VueJS等等前端框架之前，网站架构的模式。早些年间，模版引擎都是在后端的。后端获取必要数据之后，根据模版绘制成基本可用的HTML发送给前端，前端获取了绘制好的HTML后，只是做一些动画或者AJAX异步请求等等动作。这里的PHP就是做的模版绘制的工作，还有就是访问API获取处理数据。在这种构架下，可以将PHP归为大前端范畴。</p>
-<h1 id="面临的问题"><a href="#面临的问题" class="headerlink" title="面临的问题"></a>面临的问题</h1><p>作为日本最大级别的房地产信息平台（虽然日活跃也就40万而已），前端构架如此简陋，肯定是有问题的。<br>那么问题在哪里呢？</p>
+<h1 id="面临的问题"><a href="#面临的问题" class="headerlink" title="面临的问题"></a>面临的问题</h1><p>作为日本最大级别的房地产信息平台（虽然日活跃也就40万而已），前端构架如此简陋，肯定是有问题的。<br>那么问题出在哪里呢？</p>
 <h2 id="技术问题"><a href="#技术问题" class="headerlink" title="技术问题"></a>技术问题</h2><ul>
 <li><p>JS/CSS层没有框架，DOM的操作全是直接手动操作，自家开发的类似Jquery的库也是时不时出现一些很难排查的BUG，重复代码和全局函数漫天飞。</p>
 </li>
