@@ -86,12 +86,12 @@
 <meta property="og:site_name" content="Nic&#39;s Utopia">
 <meta property="og:description" content="引言Memory Leak 是最难排查调试的 Bug 种类之一，因为内存泄漏是个 undecidable problem，只有开发者才能明确一块内存是不是需要被回收。再加上内存泄漏也没有特定的报错信息，只能通过一定时间段的日志来判断是否存在内存泄漏。大家熟悉的常用调试工具对排查内存泄漏也没有用武之地。当然了，除了专门用于排查内存泄漏的工具（抓取Heap之类的工具）之外。 对于不同的语言，各种排查内">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://nicholaslee119.github.io/2018/12/18/images/VueSSRMemoryLeak/lifecycle.png">
-<meta property="og:updated_time" content="2018-12-18T01:58:28.663Z">
+<meta property="og:image" content="http://nicholaslee119.github.io/images/VueSSRMemoryLeak/lifecycle.png">
+<meta property="og:updated_time" content="2018-12-18T02:00:18.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VueJS SSR 后端绘制内存泄漏的相关解决经验">
 <meta name="twitter:description" content="引言Memory Leak 是最难排查调试的 Bug 种类之一，因为内存泄漏是个 undecidable problem，只有开发者才能明确一块内存是不是需要被回收。再加上内存泄漏也没有特定的报错信息，只能通过一定时间段的日志来判断是否存在内存泄漏。大家熟悉的常用调试工具对排查内存泄漏也没有用武之地。当然了，除了专门用于排查内存泄漏的工具（抓取Heap之类的工具）之外。 对于不同的语言，各种排查内">
-<meta name="twitter:image" content="http://nicholaslee119.github.io/2018/12/18/images/VueSSRMemoryLeak/lifecycle.png">
+<meta name="twitter:image" content="http://nicholaslee119.github.io/images/VueSSRMemoryLeak/lifecycle.png">
 
 
 
@@ -328,7 +328,7 @@
 <h1 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h1><p>遇到过 VueJS SSR 内存泄漏的朋友可能知道，针对 VueJS SSR 内存泄漏的排查，与普通 NodeJS 和 Browser 平台相比是要麻烦很多的。如果你使用了 webpack-dev-server 在本地调试，你会发现常用的内存泄漏工具毫无用武之地，因为抓取到的信息不仅包括 VueJS SSR 进程信息，还包含了 Webpack 的进程信息，甚至还有 webpack-dev-server 的各种堆信息。当然了，你也可以通过各种手段来过滤掉无关的信息，从而只剩下 VueJS SSR 的堆信息。</p>
 <p>我在排查我们组项目内存泄漏的时候，动用了各种常规工具，但最终发现 VueJS SSR 的内存泄漏有很大可能性出现在以下地方，也就说如果，你碰巧也有 VueJS SSR 内存泄漏的问题，先不要使用内存泄漏排查工具，首先从下面几个地方着手，看看是否有内存泄漏的逻辑。可能直击要害，节约时间。</p>
 <h1 id="可能造成泄漏的位置"><a href="#可能造成泄漏的位置" class="headerlink" title="可能造成泄漏的位置"></a>可能造成泄漏的位置</h1><h2 id="生命周期处的-beforeCreate-created"><a href="#生命周期处的-beforeCreate-created" class="headerlink" title="生命周期处的 beforeCreate/created"></a>生命周期处的 beforeCreate/created</h2><p>以下是 VueJS 开发者看过无数次的说明图，我还请大家再多看一遍</p>
-<p><img src="../images/VueSSRMemoryLeak/lifecycle.png" alt="img"></p>
+<p><img src="/images/VueSSRMemoryLeak/lifecycle.png" width="70%" height="70%"></p>
 <p>在官方文档里，有这么一句话：</p>
 <blockquote>
 <p>Since there are no dynamic updates, of all the lifecycle hooks, only beforeCreate and created will be called during SSR. This means any code inside other lifecycle hooks such as beforeMount or mounted will only be executed on the client.</p>
