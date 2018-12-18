@@ -87,7 +87,7 @@
 <meta property="og:description" content="引言Memory Leak 是最难排查调试的 Bug 种类之一，因为内存泄漏是个 undecidable problem，只有开发者才能明确一块内存是不是需要被回收。再加上内存泄漏也没有特定的报错信息，只能通过一定时间段的日志来判断是否存在内存泄漏。大家熟悉的常用调试工具对排查内存泄漏也没有用武之地。当然了，除了专门用于排查内存泄漏的工具（抓取Heap之类的工具）之外。 对于不同的语言，各种排查内">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://nicholaslee119.github.io/images/VueSSRMemoryLeak/lifecycle.png">
-<meta property="og:updated_time" content="2018-12-18T02:00:18.299Z">
+<meta property="og:updated_time" content="2018-12-18T11:59:45.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VueJS SSR 后端绘制内存泄漏的相关解决经验">
 <meta name="twitter:description" content="引言Memory Leak 是最难排查调试的 Bug 种类之一，因为内存泄漏是个 undecidable problem，只有开发者才能明确一块内存是不是需要被回收。再加上内存泄漏也没有特定的报错信息，只能通过一定时间段的日志来判断是否存在内存泄漏。大家熟悉的常用调试工具对排查内存泄漏也没有用武之地。当然了，除了专门用于排查内存泄漏的工具（抓取Heap之类的工具）之外。 对于不同的语言，各种排查内">
@@ -354,7 +354,7 @@
 <p>以上的代码会顺利运行，但是因为不小心声明了一个 <code>bar</code> 的变量。相当于：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.bar = <span class="string">"this is an explicit global variable"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>生成了一个全局变量 <code>window.bar</code></p>
-<p>如果不手动回收，这个全局变量会一直存在于内存中，不会被CG回收。积少成多，积沙成塔，最后造成内存泄漏。</p>
+<p>如果不手动回收，这个全局变量会一直存在于内存中，不会被CG回收。积少成多，最后造成内存泄漏。</p>
 <p>现在大家都是在各种模块化（CommonJS/AMD/CMD/etc..）之后的环境下进行开发，这种全局变量的内存泄漏的问题基本上是被消除了。但是要提醒大家，由于JavaScript的各种特性，会有很多意想不到的状况发生。当摸不清头脑的时候，可以尝试从这些特性出发找到问题。</p>
 <h2 id="被遗忘了的-Timer-或者-callback"><a href="#被遗忘了的-Timer-或者-callback" class="headerlink" title="被遗忘了的 Timer 或者 callback"></a>被遗忘了的 Timer 或者 callback</h2><p>请大家先看以下的例子</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someResource = getData();</span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="built_in">document</span>.getElementById(<span class="string">'Node'</span>);</span><br><span class="line">    <span class="keyword">if</span>(node) &#123;</span><br><span class="line">        <span class="comment">// Do stuff with node and someResource.</span></span><br><span class="line">        node.innerHTML = <span class="built_in">JSON</span>.stringify(someResource));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
